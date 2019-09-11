@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const innit = require('./innit.js')
+
+innit.eraseData();
 
 const dbModels = {
     // Require the mongoose model Kitten
