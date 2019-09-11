@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const innit = require('./innit.js')
+const cors = require('cors')
 
+router.use(cors())
 innit.eraseData();
+
 
 const dbModels = {
     person: require('../models/Person')
