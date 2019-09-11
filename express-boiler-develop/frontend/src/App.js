@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
 
 function App() {
   return (
     <div className="App">
-      <Button>hej</Button>
+      <h1>HOME</h1>
     </div>
   );
 }
