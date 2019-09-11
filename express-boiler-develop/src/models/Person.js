@@ -1,21 +1,26 @@
 const mongoose = require('mongoose');
-const {db} = require('../loaders');
+const { db } = require('../loaders');
 const Schema = mongoose.Schema;
 
 
 let personSchema = new Schema({
-    name: String,
-    age: Number,
-    town: String,
-    kittens: [{type: mongoose.Types.ObjectId, ref: 'Kitten'}]
+    name: {
+        firstName: String,
+        lastName: String
+    },
+    phoneNumber: String,
+    mail: String,
+    location: {
+        country: String,
+        ciry: String,
+        timezone: String
+    }
 });
 
 
-class PersonClass{
+class PersonClass {
 
-    hello(){
-        return `Iam ${this.name}`
-    }
+
 
 }
 
