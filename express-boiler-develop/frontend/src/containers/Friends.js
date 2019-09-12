@@ -28,20 +28,21 @@ export default class Friends extends Component {
     }
     async getData() {
         let data = await (await fetch("/api/person")).json()
-        this.setState({ data: data })
+        this.setState({ data: data.sort((a,b) => a.name.firstName.localeCompare(b.name.firstName))})
+        // this.setState(this.state.data)
         console.log(this.state.data);
     }
 
     render() {
         const filteredData = this.state.data.filter(friend =>
-            friend.name.firstName.toLowerCase().includes(this.state.search));
+            friend.name.firstName.toLowerCase().startsWith(this.state.search));
         return (
             <div>
                 <InputGroup size="sm" className="mb-3">
                     <FormControl onChange={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                 </InputGroup>
                 {
-                    filteredData.map(item => <FriendCard key={item._id}{...item}>
+                    filteredData.sort().map(item => <FriendCard key={item._id}{...item}>
                     </FriendCard>)
                 }
             </div>
