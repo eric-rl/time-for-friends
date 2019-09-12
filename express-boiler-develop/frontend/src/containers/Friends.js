@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
-import {InputGroup, FormControl} from 'react-bootstrap' ;
-
+import { InputGroup, FormControl } from 'react-bootstrap';
+import FriendCard from '../components/FriendCard';
+// import store from '../utilities/Store';
 
 
 export default class Friends extends Component {
     state = {
-        data: []
+        data: [],
+        search: ''
+    }
+
+
+
+    handleChange = e => {
+        console.log(e.target.value);
+        this.setState({ search: e.target.value })
+
     }
 
     componentDidMount() {
         this.getData();
+
+        // this.storeSubscriber = function (changes, store) {
+        //     console.log("I am the App. I see that this happend in store", changes);
+        // }
+        // store.subscribeToChanges(this.storeSubscriber)
     }
     async getData() {
         let data = await (await fetch("/api/person")).json()
@@ -18,16 +33,17 @@ export default class Friends extends Component {
     }
 
     render() {
+        const filteredData = this.state.data.filter(friend =>
+            friend.name.firstName.toLowerCase().includes(this.state.search));
         return (
             <div>
                 <InputGroup size="sm" className="mb-3">
-                    <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+                    <FormControl onChange={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                 </InputGroup>
-                <ul>
-                    {this.state.data.map(item =>
-                        <li key={item._id}>{item.name.firstName} {item.name.lastName}, {item.location.timezone}</li>
-                    )}
-                </ul>
+                {
+                    filteredData.map(item => <FriendCard key={item._id}{...item}>
+                    </FriendCard>)
+                }
             </div>
         )
     }
