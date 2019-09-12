@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 class Navigationbar extends Component {
     render() {
@@ -11,9 +11,9 @@ class Navigationbar extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link ><Link to="/" style={{color: 'rgba(255,255,255,.5)', textDecoration: 'none'}}>Home</Link></Nav.Link>
-                            <Nav.Link ><Link to="/friends" style={{color: 'rgba(255,255,255,.5)', textDecoration: 'none'}}>Friends</Link></Nav.Link>
-                            <Nav.Link ><Link to="/add-friend" style={{color: 'rgba(255,255,255,.5)', textDecoration: 'none'}}>Add friend</Link></Nav.Link>
+                            <NavLink className="nav-link" to="/" style={{color: 'rgba(255,255,255,.5)', textDecoration: 'none'}}>Home</NavLink>
+                            <NavLink className="nav-link" to="/friends" style={{color: 'rgba(255,255,255,.5)', textDecoration: 'none'}}>Friends</NavLink>
+                            <NavLink className="nav-link" to="/add-friend" style={{color: 'rgba(255,255,255,.5)', textDecoration: 'none'}}>Add friend</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
