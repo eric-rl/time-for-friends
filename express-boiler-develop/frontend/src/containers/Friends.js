@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
-async function test(){
-    let data = await (await fetch("http://localhost:3001/api/person")).json()
-    console.log(data[0]);
-    
-}
-    
-class Friends extends Component {
-    componentDidMount() {
-        test();
 
+
+
+export default class Friends extends Component {
+    state = {
+        data: []
     }
-    
+
+    componentDidMount() {
+        this.getData();
+    }
+    async getData() {
+        let data = await (await fetch("http://localhost:3000/api/person")).json()
+        this.setState({data: data})
+        console.log(this.state.data);
+    }   
+
     render() {
         return (
             <div>
@@ -20,4 +25,3 @@ class Friends extends Component {
     }
 }
 
-export default Friends;

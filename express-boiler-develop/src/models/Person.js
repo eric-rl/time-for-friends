@@ -12,8 +12,8 @@ let personSchema = new Schema({
     mail: String,
     location: {
         country: String,
-        ciry: String,
-        timezone: String
+        city: String,
+        timezone: String    
     }
 });
 
