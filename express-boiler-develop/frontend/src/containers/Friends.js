@@ -9,13 +9,8 @@ export default class Friends extends Component {
         data: [],
         search: ''
     }
-
-
-
     handleChange = e => {
-        console.log(e.target.value);
         this.setState({ search: e.target.value })
-
     }
 
     componentDidMount() {
@@ -29,9 +24,8 @@ export default class Friends extends Component {
     async getData() {
         let data = await (await fetch("/api/person")).json()
         this.setState({ data: data.sort((a,b) => a.name.firstName.localeCompare(b.name.firstName))})
-        // this.setState(this.state.data)
-        console.log(this.state.data);
     }
+
 
     render() {
         const filteredData = this.state.data.filter(friend =>

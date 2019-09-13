@@ -5,8 +5,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Friends from './containers/Friends';
-import AddFriends from './containers/AddFriend'
-import Navigation from './components/Navigationbar'
+import AddFriends from './containers/AddFriend';
+import Navigation from './components/Navigationbar';
+import FriendDetails from './containers/FriendDetails';
 
 
 const routing = (
@@ -14,8 +15,9 @@ const routing = (
         <div>
             <Navigation />
             <Route exact path="/" component={App} />
-            <Route path="/friends" component={Friends} />
+            <Route exact path="/friends" component={Friends} />
             <Route path="/add-friend" component={AddFriends} />
+            <Route path="/friends/:id" component={FriendDetails}></Route>
         </div>
 
     </Router>
