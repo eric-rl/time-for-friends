@@ -9,6 +9,7 @@ export default class Friends extends Component {
         data: [],
         search: ''
     }
+    
     handleChange = e => {
         this.setState({ search: e.target.value })
     }

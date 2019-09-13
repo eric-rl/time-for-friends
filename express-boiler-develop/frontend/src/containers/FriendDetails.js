@@ -4,28 +4,25 @@ import React, { Component } from 'react'
 export default class FriendDetails extends Component {
 
     state = {
-        friend: {}
+        friend: {},
+        loading: true
     }
 
-    async componentDidMount() {
-        await this.getFriend()
-        console.log(this.state.friend.name.firstName)
+    componentDidMount() {
+        this.getFriend()
     }
 
     async getFriend() {
-        let result = await (await fetch("/api/person/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1))).json();
-        this.setState({ friend: result })
+        let result = await (await fetch("/api/person/" + this.props.match.params.id)).json();
+        this.setState({ friend: result, loading: false })
+
         console.log(this.state.friend.name.firstName);
     }
     render() {
-        // const data = this.state.friend;
-        // console.log(data)
-        // console.log(this.state.friend)
-
 
         return (
             <div>
-                {/* <p>{this.state.friend.name.firstName}</p> */}
+                {this.state.loading ? <h1> </h1> : <h1>{this.state.friend.name.firstName}</h1> }
             </div>
         )
     }
