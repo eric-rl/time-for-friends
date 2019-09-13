@@ -30,9 +30,9 @@ export default class AddFriend extends Component {
         }
 
         let result = await fetch('/api/person', {
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
-            body: data
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
         });
 
         console.log(result)
