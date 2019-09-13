@@ -7,8 +7,9 @@ export default class FriendDetails extends Component {
         friend: {}
     }
 
-    componentDidMount() {
-        this.getFriend()
+    async componentDidMount() {
+        await this.getFriend()
+        console.log(this.state.friend.name.firstName)
     }
 
     async getFriend() {
@@ -17,14 +18,14 @@ export default class FriendDetails extends Component {
         console.log(this.state.friend.name.firstName);
     }
     render() {
-        const data = this.state.friend;
-        console.log(data)
+        // const data = this.state.friend;
+        // console.log(data)
         // console.log(this.state.friend)
 
 
         return (
             <div>
-                {/* <p>{data.name.firstName}</p> */}
+                {/* <p>{this.state.friend.name.firstName}</p> */}
             </div>
         )
     }
