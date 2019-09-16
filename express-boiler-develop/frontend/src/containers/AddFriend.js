@@ -44,7 +44,7 @@ export default class AddFriend extends Component {
     render() {
         return (
             <div>
-                <Form>
+                <Form className="col-4 offset-4">
                     <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>First name</Form.Label>
                         <Form.Control type="text" placeholder="Åke" ref={this.firstName} />

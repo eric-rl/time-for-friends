@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import {Card, Button} from 'react-bootstrap'
+import CardGroup from 'react-bootstrap/CardGroup'
 
 export default class FriendCard extends Component {
 
@@ -12,22 +13,24 @@ export default class FriendCard extends Component {
         let friendLink = "/friends/" + this.props._id;
         
         return (
-            <div>
-                <Card style={{ width: '18rem' }} >
+            <div className='br3 ma2 dib bw2 shadow-5'>
+                <CardGroup>
+                <Card style={{ width: '13rem' }} className="over-lay">
                 <Link to={{
                     pathname: friendLink,
                     friendData: {
                         friend: this.props
                     }
                 }}>
-                    <Card.Img variant="top"  />
+                    <Card.Img variant="top" alt="Hej" src={`https://robohash.org/${this.props._id}?size=200x200`}  />
                     <Card.Body>
                         <Card.Title>{this.props.name.firstName} {this.props.name.lastName}</Card.Title>
                         <Card.Text>{this.props.location.country}</Card.Text>
-                        <Button onClick={this.routeToFriend} variant="primary">Go somewhere</Button>
+                        
                     </Card.Body>
                 </Link>
                 </Card>
+                </CardGroup>
             </div>
         )
     }
