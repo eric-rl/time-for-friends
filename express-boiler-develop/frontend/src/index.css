@@ -60,10 +60,24 @@ h1 {
   font-weight: 200;
   color: #0ccac4;
 }
+h2{
+  font-family: "Digital Font";
+  color: rgb(184, 38, 38);
+  letter-spacing: 0.2em;
+}
 
 .nav-link{
   font-family: 'SEGA LOGO FONT';
   font-weight: 200;
   font-size: 1.4rem;
   color: #0ccac4 !important;
+}
+
+.digital-font{
+  font-family: 'Digital Font';
+  font-size: 1.2em !important;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
