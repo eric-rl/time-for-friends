@@ -36,7 +36,7 @@ export default class Friends extends Component {
                 <hr/>
                 <h1 className='f1 tc'>My Friends</h1>
                 <InputGroup size="lg" className="col-5 offset-2 " >
-                    <FormControl onChange={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+                    <FormControl placeholder="Search..." onChange={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                 </InputGroup>
                 <div className="tc" >
                     {

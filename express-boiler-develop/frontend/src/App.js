@@ -29,6 +29,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <h1>HOME</h1>
+        <p>Hej alliopa</p>
       </div>
     );
   }
