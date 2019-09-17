@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { InputGroup, FormControl } from 'react-bootstrap';
+import { InputGroup, FormControl, Jumbotron } from 'react-bootstrap';
 import FriendCard from '../components/FriendCard';
 import InputRange from 'react-input-range';
 import Moment from 'moment-timezone/builds/moment-timezone-with-data'
@@ -41,10 +41,9 @@ export default class Friends extends Component {
             this.state.data.sort((a, b) => a.name.lastName.localeCompare(b.name.lastName))
 
         const filteredData = this.state.data.filter(friend =>
-            friend.name.firstName.toLowerCase().startsWith(this.state.search) ||
-            friend.name.lastName.toLowerCase().startsWith(this.state.search) &&
+            friend.name.firstName.toLowerCase().startsWith(this.state.search) &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") >= this.state.rangeValue.min &&
-            Moment.tz(new Date(), friend.location.timezone).format("HH") <= this.state.rangeValue.max);
+            Moment.tz(new Date(), friend.location.timezone).format("HH") < this.state.rangeValue.max);
 
 
 
@@ -52,30 +51,31 @@ export default class Friends extends Component {
         console.log(this.state.rangeValue)
         console.log(this.state.sortByFirstName)
         return (
-            <div className="col-10 offset-1">
+            <div className="col-lg-10 offset-lg-1">
                 <hr />
                 <h1 className='f1 tc'>My Friends</h1>
-                <div className="flex">
-                    <InputGroup size="lg" className="" >
+                <Jumbotron className="col-10 offset-1 p-4">
+                    <InputGroup size="xs" className="px-0" >
                         <FormControl placeholder="Search..." onChange={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                     </InputGroup>
                     <BootstrapSwitchButton
+                        className=""
                         checked={true}
-                        onlabel='First Name'
+                        onlabel='First name'
                         onstyle='success'
-                        offlabel='Last Name'
+                        offlabel='Last name'
                         offstyle='danger'
-                        style='w-100 ml-2'
+                        style='w-100 mt-1 p-0'
                         onChange={(checked) => {
                             this.setState({ sortByFirstName: checked })
                         }}
                     />
-                </div>
-                <InputRange
-                    maxValue={23}
-                    minValue={0}
-                    value={this.state.rangeValue}
-                    onChange={value => this.setState({ rangeValue: value })} />
+                    <InputRange
+                        maxValue={23}
+                        minValue={0}
+                        value={this.state.rangeValue}
+                        onChange={value => this.setState({ rangeValue: value })} />
+                </Jumbotron>
                 <div className="tc" >
                     {
                         filteredData.sort().map(item => <FriendCard className="friend-card" key={item._id}{...item}>
