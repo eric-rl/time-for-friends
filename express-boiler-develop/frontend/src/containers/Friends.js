@@ -38,7 +38,8 @@ export default class Friends extends Component {
     render() {
 
         const filteredData = this.state.data.filter(friend =>
-            friend.name.firstName.toLowerCase().startsWith(this.state.search) &&
+            friend.name.firstName.toLowerCase().startsWith(this.state.search) ||
+            friend.name.lastName.toLowerCase().startsWith(this.state.search) &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") >= this.state.rangeValue.min &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") <= this.state.rangeValue.max);
 
