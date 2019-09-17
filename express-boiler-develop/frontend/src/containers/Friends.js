@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { InputGroup, FormControl } from 'react-bootstrap';
 import FriendCard from '../components/FriendCard';
 import InputRange from 'react-input-range';
+import Moment from 'moment-timezone/builds/moment-timezone-with-data'
 import 'react-input-range/lib/css/index.css'
 // import store from '../utilities/Store';
 
@@ -32,9 +33,14 @@ export default class Friends extends Component {
 
 
     render() {
+    
         const filteredData = this.state.data.filter(friend =>
-            friend.name.firstName.toLowerCase().startsWith(this.state.search));
-            console.log(this.state.rangeValue)
+            friend.name.firstName.toLowerCase().startsWith(this.state.search) &&
+            Moment.tz(new Date(), friend.location.timezone).format("HH") >= this.state.rangeValue.min &&
+            Moment.tz(new Date(), friend.location.timezone).format("HH") <= this.state.rangeValue.max);
+
+
+        console.log(this.state.rangeValue)
         return (
             <div className="col-10 offset-1">
                 <hr />
