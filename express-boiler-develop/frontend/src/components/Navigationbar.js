@@ -5,7 +5,7 @@ class Navigationbar extends Component {
     render() {
         return (
             <div>
-                        <div className="tc">
+                        <div className="flex justify-center">
                             <NavLink className="nav-link" to="/" >Home</NavLink>
                             <NavLink className="nav-link" to="/friends">Friends</NavLink>
                             <NavLink className="nav-link" to="/add-friend">Add friend</NavLink>
