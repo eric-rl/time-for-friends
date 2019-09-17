@@ -10,9 +10,7 @@ class FriendMap extends Component {
             marginLeft: 'auto',
             marginRight: 'auto',
         };
-        const mapOptions = {
-            mapTypeId: 'satellite   '
-        }
+   
         return (
             <div className="map-container">
                 <Map className="map-map"
