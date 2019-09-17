@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FriendMap from './components/FriendMap';
 // import store from './utilities/Store';
 
 
@@ -28,8 +29,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>HOME</h1>
-        <p>Hej alliopa</p>
+        <FriendMap className="col-10 offset-1"/>
       </div>
     );
   }
