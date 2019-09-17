@@ -31,11 +31,14 @@ export default class Friends extends Component {
     }
     async getData() {
         let data = await (await fetch("/api/person")).json()
-        this.setState({ data: data.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) })
+        this.setState({ data })
     }
 
 
     render() {
+        this.state.sortByFirstName ? this.state.data.sort((a, b) =>
+            a.name.firstName.localeCompare(b.name.firstName)) :
+            this.state.data.sort((a, b) => a.name.lastName.localeCompare(b.name.lastName))
 
         const filteredData = this.state.data.filter(friend =>
             friend.name.firstName.toLowerCase().startsWith(this.state.search) ||
@@ -43,7 +46,7 @@ export default class Friends extends Component {
             Moment.tz(new Date(), friend.location.timezone).format("HH") >= this.state.rangeValue.min &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") <= this.state.rangeValue.max);
 
-            
+
 
 
         console.log(this.state.rangeValue)
