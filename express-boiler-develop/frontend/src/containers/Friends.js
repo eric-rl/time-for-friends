@@ -4,6 +4,7 @@ import FriendCard from '../components/FriendCard';
 import InputRange from 'react-input-range';
 import Moment from 'moment-timezone/builds/moment-timezone-with-data'
 import 'react-input-range/lib/css/index.css'
+import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 // import store from '../utilities/Store';
 
 
@@ -11,7 +12,9 @@ export default class Friends extends Component {
     state = {
         data: [],
         search: '',
-        rangeValue: { min: 0, max: 23 }
+        rangeValue: { min: 0, max: 23 },
+        sortByFirstName: true
+
     }
 
     handleChange = e => {
@@ -33,21 +36,37 @@ export default class Friends extends Component {
 
 
     render() {
-    
+
         const filteredData = this.state.data.filter(friend =>
             friend.name.firstName.toLowerCase().startsWith(this.state.search) &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") >= this.state.rangeValue.min &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") <= this.state.rangeValue.max);
 
+            
+
 
         console.log(this.state.rangeValue)
+        console.log(this.state.sortByFirstName)
         return (
             <div className="col-10 offset-1">
                 <hr />
                 <h1 className='f1 tc'>My Friends</h1>
-                <InputGroup size="lg" className="col-5 offset-2 " >
-                    <FormControl placeholder="Search..." onChange={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
-                </InputGroup>
+                <div className="flex">
+                    <InputGroup size="lg" className="" >
+                        <FormControl placeholder="Search..." onChange={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+                    </InputGroup>
+                    <BootstrapSwitchButton
+                        checked={true}
+                        onlabel='Förnamn'
+                        onstyle='success'
+                        offlabel='Efternamn'
+                        offstyle='danger'
+                        style='w-100 ml-2'
+                        onChange={(checked) => {
+                            this.setState({ sortByFirstName: checked })
+                        }}
+                    />
+                </div>
                 <InputRange
                     maxValue={23}
                     minValue={0}
