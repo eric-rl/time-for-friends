@@ -61,9 +61,9 @@ export default class Friends extends Component {
                     </InputGroup>
                     <BootstrapSwitchButton
                         checked={true}
-                        onlabel='Förnamn'
+                        onlabel='First Name'
                         onstyle='success'
-                        offlabel='Efternamn'
+                        offlabel='Last Name'
                         offstyle='danger'
                         style='w-100 ml-2'
                         onChange={(checked) => {

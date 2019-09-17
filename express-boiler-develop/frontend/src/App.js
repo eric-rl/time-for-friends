@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import FriendMap from './components/FriendMap';
 // import store from './utilities/Store';
 
