@@ -14,11 +14,11 @@ class FriendMap extends Component {
     }
 
     async getData(){
-        // let data = await (await fetch("/api/persons"))
+        let data = await (await fetch("/api/person")).json()
         let points = await (await fetch("https://maps.googleapis.com/maps/api/geocode/json?address=Lomma&key=AIzaSyB4pPsphC1Am-jN9AYwCaUZ3gYsDnSSOtE")).json()
         this.setState({ points, loading: false })
-        // this.setState({ data})
-        // console.log(this.state.data)
+        this.setState({ data})
+        console.log(this.state.data)
     }
 
     render() {
@@ -46,7 +46,6 @@ class FriendMap extends Component {
                     >
                         <Marker 
                         title={this.state.points.results[0].address_components[0].long_name}
-                        name={'hello'}
                         position={{
                             lat: this.state.points.results[0].geometry.location.lat,
                             lng: this.state.points.results[0].geometry.location.lng
