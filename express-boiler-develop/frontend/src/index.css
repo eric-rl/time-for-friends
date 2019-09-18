@@ -98,6 +98,15 @@ input[type=number]::-webkit-outer-spin-button {
   width: 80vw !important;
 }
 
+hr{ 
+  display:block;
+  border:none;
+  color:white;
+  height:1px;
+  background:black;
+  background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(rgb(0, 49, 112)), to(rgba(255, 255, 255, 0)));
+}
+
 
 
 

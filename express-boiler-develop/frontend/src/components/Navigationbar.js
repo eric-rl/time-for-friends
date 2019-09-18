@@ -10,7 +10,7 @@ class Navigationbar extends Component {
                             <NavLink className="nav-link" to="/friends">Friends</NavLink>
                             <NavLink className="nav-link" to="/add-friend">Add friend</NavLink>
                         </div>
-                        <hr />
+                        <hr className="col-10 offset-1"/>
             </div>
         )
     }

@@ -43,46 +43,51 @@ export default class AddFriend extends Component {
 
     render() {
         return (
-            <div>
-                <Form className="col-4 offset-4">
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                        <Form.Label>First name</Form.Label>
-                        <Form.Control type="text" placeholder="Åke" ref={this.firstName} />
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                        <Form.Label>Last name</Form.Label>
-                        <Form.Control type="text" placeholder="Torsson" ref={this.lastName} />
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="åke.torsson.cool@gmail.com" ref={this.email} />
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                        <Form.Label>Phone number</Form.Label>
-                        <Form.Control type="number" placeholder="123-456789" ref={this.phoneNumber} />
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                        <Form.Label>Country</Form.Label>
-                        <Form.Control type="text" placeholder="Sweden" ref={this.country} />
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                        <Form.Label>City</Form.Label>
-                        <Form.Control type="text" placeholder="Lund" ref={this.city} />
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlSelect1">
-                        <Form.Label>Timezone</Form.Label>
-                        <Form.Control as="select" ref={this.timezone} >
-                            <option>Europe/Oslo</option>
-                            <option>Africa/Accra</option>
-                            <option>America/New_York</option>
-                            <option>Asia/Chongqing</option>
-                            <option>America/Montreal</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Button onClick={() => this.dataCheck()} variant="primary">
-                        Submit
-                    </Button>
+            <div className="justify-center tc">
+                <h1 className='f1'>Add friend</h1>
+                <Form className="flex row col-12 col-sm-8 offset-sm-2">
+                    <div className="column col-12 col-md-6 col-12">
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>First name</Form.Label>
+                            <Form.Control type="text" placeholder="Åke" ref={this.firstName} />
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Last name</Form.Label>
+                            <Form.Control type="text" placeholder="Torsson" ref={this.lastName} />
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="åke.torsson.cool@gmail.com" ref={this.email} />
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Phone number</Form.Label>
+                            <Form.Control type="number" placeholder="123-456789" ref={this.phoneNumber} />
+                        </Form.Group>
+                    </div>
+                    <div className="column col-12 col-md-6">
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Country</Form.Label>
+                            <Form.Control type="text" placeholder="Sweden" ref={this.country} />
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>City</Form.Label>
+                            <Form.Control type="text" placeholder="Lund" ref={this.city} />
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlSelect1">
+                            <Form.Label>Timezone</Form.Label>
+                            <Form.Control as="select" ref={this.timezone} >
+                                <option>Europe/Oslo</option>
+                                <option>Africa/Accra</option>
+                                <option>America/New_York</option>
+                                <option>Asia/Chongqing</option>
+                                <option>America/Montreal</option>
+                            </Form.Control>
+                        </Form.Group>
+                    </div>
                 </Form>
+                <Button onClick={() => this.dataCheck()} variant="primary">
+                    Submit
+                    </Button>
             </div>
         )
     }
