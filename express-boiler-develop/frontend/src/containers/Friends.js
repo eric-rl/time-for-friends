@@ -53,7 +53,6 @@ export default class Friends extends Component {
         console.log(this.state.sortByFirstName)
         return (
             <div className="col-10 offset-1">
-                <hr />
                 <h1 className='f1 tc'>My Friends</h1>
                 <div className="flex">
                     <InputGroup size="lg" className="" >

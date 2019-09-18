@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import '../css/spinner.css'
 
 class FriendMap extends Component {
     state = {
@@ -27,7 +28,6 @@ class FriendMap extends Component {
     render() {
         return (
             <div className="col-10 offset-1">
-                <hr />
                 <h1 className='f1 tc'>Friend Map</h1>
                 <div className="map-container">
                     <Map
@@ -37,7 +37,20 @@ class FriendMap extends Component {
                         initialCenter={{ lat: 20, lng: 1 }}
                         disableDefaultUI={true}
                     >
-                        {this.state.loading ? (<h1 className="loading"> Loading </h1>) :
+                        {this.state.loading ? (<div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                        </div>) :
                             (
                                 this.state.markerPoints.map(city => (
 

@@ -98,9 +98,6 @@ input[type=number]::-webkit-outer-spin-button {
   width: 80vw !important;
 }
 
-.loading{
-  margin-top: 0;
-  position: absolute;
-  color: black;
-  font-size: 1em;
-}
+
+
+
