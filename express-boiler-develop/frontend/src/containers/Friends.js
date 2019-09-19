@@ -54,7 +54,7 @@ export default class Friends extends Component {
             (friend.name.firstName.toLowerCase().startsWith(this.state.search) ||
                 friend.name.lastName.toLowerCase().startsWith(this.state.search)) &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") >= this.state.rangeValue.min &&
-            Moment.tz(new Date(), friend.location.timezone).format("HH") <= this.state.rangeValue.max);
+            Moment.tz(new Date(), friend.location.timezone).format("HH") < this.state.rangeValue.max);
 
         return (
             <div className="col-12 col-sm-10 offset-sm-1">
