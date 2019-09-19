@@ -37,4 +37,8 @@
 {"name":{"firstName":"Torry","lastName":"Unthank"},"email":"tunthank10@domainmarket.com","phoneNumber":"(710) 9892910","location":{"timezone":"Asia/Jakarta","country":"Indonesia","city":"Jakarta"}},
 {"name":{"firstName":"Gilles","lastName":"Grinley"},"email":"ggrinley11@uiuc.edu","phoneNumber":"(517) 5242054","location":{"timezone":"Asia/Dubai","country":"United Arab Emirates","city":"Dubai"}},
 {"name":{"firstName":"Tressa","lastName":"Putterill"},"email":"tputterill12@t.co","phoneNumber":"(664) 6174375","location":{"timezone":"Asia/Chongqing","country":"China","city":"Chongqing"}},
-{"name":{"firstName":"Cob","lastName":"Stoade"},"email":"cstoade13@illinois.edu","phoneNumber":"(989) 4336081","location":{"timezone":"America/Montreal","country":"Canada","city":"Montreal"}}]
+{"name":{"firstName":"Cob","lastName":"Stoade"},"email":"cstoade13@illinois.edu","phoneNumber":"(989) 4336081","location":{"timezone":"America/Montreal","country":"Canada","city":"Montreal"}},
+{"name":{"firstName":"Clas","lastName":"Storm"},"email":"clas.storm@greenland.edu","phoneNumber":"(352) 459394","location":{"timezone":"America/Godthab","country":"Greenland","city":"Nuuk"}},
+{"name":{"firstName":"Clair","lastName":"Page"},"email":"clair.page@aus.edu","phoneNumber":"(352) 4593492","location":{"timezone":"Australia/Perth","country":"Australia","city":"Perth"}},
+{"name":{"firstName":"Tony","lastName":"Blaire"},"email":"tony.blair@nyz.edu","phoneNumber":"(352) 94582756","location":{"timezone":"Pacific/Auckland","country":"New Zeeland","city":"Auckland"}},
+{"name":{"firstName":"Malle","lastName":"Divve"},"email":"malle.divve@maldives.edu","phoneNumber":"(352) 54932274","location":{"timezone":"Indian/Maldives","country":"Maldives","city":"Malé"}}]

@@ -47,11 +47,6 @@ export default class Friends extends Component {
             Moment.tz(new Date(), friend.location.timezone).format("HH") >= this.state.rangeValue.min &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") <= this.state.rangeValue.max);
 
-
-
-
-        console.log(this.state.rangeValue)
-        console.log(this.state.sortByFirstName)
         return (
             <div className="col-12 col-sm-10 offset-sm-1">
                 <h1 className='f1 tc'>My Friends</h1>
