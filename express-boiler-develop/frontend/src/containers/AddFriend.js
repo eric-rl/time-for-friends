@@ -3,6 +3,10 @@ import { Form, Button } from 'react-bootstrap'
 
 export default class AddFriend extends Component {
 
+    state = {
+        validated: false
+    }
+
     constructor(props) {
         super(props)
         this.firstName = React.createRef();
@@ -35,47 +39,84 @@ export default class AddFriend extends Component {
             headers: { 'Content-Type': 'application/json' }
         });
 
-        console.log(result)
-        console.log(data)
+        let id = await result.json()
+        await this.props.history.push('/friends/'+id._id)
     }
 
 
 
+    handleSubmit = event => {
+        const form = event.currentTarget;
+        console.log(form.checkValidity());
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.setState({ validated: true });
+        } else {
+            event.preventDefault();
+            this.dataCheck();
+        }
+        console.log(this.state.validated)
+    };
+
+
     render() {
+
+
+
+
         return (
             <div className="justify-center tc">
                 <h1 className='f1'>Add friend</h1>
-                <Form className="flex row col-12 col-sm-8 offset-sm-2">
+                <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit} className="flex row col-12 col-sm-8 offset-sm-2">
                     <div className="column col-12 col-md-6 col-12">
-                        <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Group controlId="validationFirstname">
                             <Form.Label>First name</Form.Label>
-                            <Form.Control type="text" placeholder="Åke" ref={this.firstName} />
+                            <Form.Control required type="text" placeholder="Åke" ref={this.firstName} />
+                            <Form.Control.Feedback type="invalid">
+                                Please enter your first name.
+                            </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Group controlId="validationLastname">
                             <Form.Label>Last name</Form.Label>
-                            <Form.Control type="text" placeholder="Torsson" ref={this.lastName} />
+                            <Form.Control required type="text" placeholder="Torsson" ref={this.lastName} />
+                            <Form.Control.Feedback type="invalid">
+                                Please enter your last name.
+                            </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Group controlId="validationEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="åke.torsson.cool@gmail.com" ref={this.email} />
+                            <Form.Control required type="email" placeholder="åke.torsson.cool@gmail.com" ref={this.email} />
+                            <Form.Control.Feedback type="invalid">
+                                Enter valid email.
+                            </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Group controlId="validationPhonenumber">
                             <Form.Label>Phone number</Form.Label>
-                            <Form.Control type="number" placeholder="123-456789" ref={this.phoneNumber} />
+                            <Form.Control required type="number" placeholder="123-456789" ref={this.phoneNumber} />
+                            <Form.Control.Feedback type="invalid">
+                                Enter your phone number.
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </div>
                     <div className="column col-12 col-md-6">
-                        <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Group controlId="validationCountry">
                             <Form.Label>Country</Form.Label>
-                            <Form.Control type="text" placeholder="Sweden" ref={this.country} />
+                            <Form.Control required type="text" placeholder="Sweden" ref={this.country} />
+                            <Form.Control.Feedback type="invalid">
+                                Please enter your country.
+                            </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Group controlId="validationCity">
                             <Form.Label>City</Form.Label>
-                            <Form.Control type="text" placeholder="Lund" ref={this.city} />
+                            <Form.Control required type="text" placeholder="Lund" ref={this.city} />
+                            <Form.Control.Feedback type="invalid">
+                                Please enter your city.
+                            </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group controlId="exampleForm.ControlSelect1">
+                        <Form.Group controlId="validationTimezone">
                             <Form.Label>Timezone</Form.Label>
-                            <Form.Control as="select" ref={this.timezone} >
+                            <Form.Control required as="select" ref={this.timezone} >
                                 <option>Europe/Oslo</option>
                                 <option>Africa/Accra</option>
                                 <option>America/New_York</option>
@@ -84,10 +125,10 @@ export default class AddFriend extends Component {
                             </Form.Control>
                         </Form.Group>
                     </div>
-                </Form>
-                <Button onClick={() => this.dataCheck()} variant="primary">
-                    Submit
+                    <Button type="submit" variant="primary">
+                        Submit
                     </Button>
+                </Form>
             </div>
         )
     }
