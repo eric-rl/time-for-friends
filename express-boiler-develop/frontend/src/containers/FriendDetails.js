@@ -15,8 +15,6 @@ export default class FriendDetails extends Component {
     async getFriend() {
         let result = await (await fetch("/api/person/" + this.props.match.params.id)).json();
         this.setState({ friend: result, loading: false })
-
-        console.log(this.state.friend.name.firstName);
     }
     render() {
 
