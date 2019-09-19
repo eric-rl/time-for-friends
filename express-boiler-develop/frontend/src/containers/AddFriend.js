@@ -6,7 +6,9 @@ import GeoData from '../utilities/GeoData.json'
 export default class AddFriend extends Component {
 
     state = {
-        validated: false
+        validated: false,
+        country: 'Sweden',
+        uniqueCities: []
     }
 
     constructor(props) {
@@ -18,6 +20,21 @@ export default class AddFriend extends Component {
         this.timezone = React.createRef();
         this.country = React.createRef();
         this.city = React.createRef();
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange(event) {
+        this.setState({ country: event.target.value })
+
+        setTimeout(() => {
+            console.log('state', this.state.country)
+            let uniqueCities = []
+            uniqueCities = [...new Set(GeoData[this.state.country])]
+            this.setState({uniqueCities})
+            console.log(uniqueCities);
+
+        }, 200)
+        console.log('target value', event.target.value)
     }
 
     async dataCheck() {
@@ -42,7 +59,7 @@ export default class AddFriend extends Component {
         });
 
         let id = await result.json()
-        await this.props.history.push('/friends/'+id._id)
+        await this.props.history.push('/friends/' + id._id)
     }
 
 
@@ -99,22 +116,22 @@ export default class AddFriend extends Component {
                         </Form.Group>
                     </div>
                     <div className="column col-12 col-md-6">
-                    <Form.Group controlId="validationCountry">
+                        <Form.Group controlId="validationCountry">
                             <Form.Label>Country</Form.Label>
-                            <Form.Control required as="select" ref={this.country} >
-                               {
-                                   Object.keys(GeoData).map(item => 
-                                    <option key={item}>
-                                        {item}
-                                    </option>)
-                               }
+                            <Form.Control required as="select" onChange={this.handleChange.bind(this)} ref={this.country} >
+                                {
+                                    Object.keys(GeoData).map(item =>
+                                        <option key={item} >
+                                            {item}
+                                        </option>)
+                                }
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="validationCity">
                             <Form.Label>City</Form.Label>
                             <Form.Control required as="select" ref={this.city} >
-                               {
-                                   Object.keys(GeoData).map(item => 
+                                {
+                                   this.state.uniqueCities.map(item => 
                                     <option key={item}>
                                         {item}
                                     </option>)
