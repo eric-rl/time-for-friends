@@ -51,7 +51,7 @@ export default class Friends extends Component {
             <div className="col-12 col-sm-10 offset-sm-1">
                 <h1 className='f1 tc'>My Friends</h1>
                 <div className="col-10 offset-1">
-                    <div className="d-flex row justify-content-between">
+                    <div className="d-flex row justify-content-around">
                         <InputGroup size="md" className="col-12 col-sm-4 p-0" >
                             <FormControl placeholder="Search..." onChange={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                         </InputGroup>

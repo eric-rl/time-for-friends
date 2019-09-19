@@ -27,7 +27,7 @@ export default class FriendCard extends Component {
                             <Card.Body>
                                 <Card.Title className="digital-font">{this.props.name.firstName} {this.props.name.lastName}</Card.Title>
                                 <Card.Text className="digital-font">{this.props.location.country}</Card.Text>
-                                <Clock timeZone={this.props.location.timezone}>></Clock>
+                                <Clock timeZone={this.props.location.timezone}></Clock>
 
                             </Card.Body>
                         </Link>
