@@ -64,7 +64,7 @@ export default class Friends extends Component {
                         <InputGroup size="md" className="col-12 col-sm-4 p-0" >
                             <FormControl placeholder="Search..." onKeyUp={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                         </InputGroup>
-                        <Button onClick={this.sortByTimezone}>Sort Timezone</Button>
+                        {/* <Button onClick={this.sortByTimezone}>Sort Timezone</Button> */}
                         <BootstrapSwitchButton
                             checked={true}
                             onlabel='First Name'
