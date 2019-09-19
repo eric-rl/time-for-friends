@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import GeoData from '../utilities/GeoData.json'
+
 
 export default class AddFriend extends Component {
 
@@ -62,9 +64,6 @@ export default class AddFriend extends Component {
 
     render() {
 
-
-
-
         return (
             <div className="justify-center tc">
                 <h1 className='f1'>Add friend</h1>
@@ -100,19 +99,27 @@ export default class AddFriend extends Component {
                         </Form.Group>
                     </div>
                     <div className="column col-12 col-md-6">
-                        <Form.Group controlId="validationCountry">
+                    <Form.Group controlId="validationCountry">
                             <Form.Label>Country</Form.Label>
-                            <Form.Control required type="text" placeholder="Sweden" ref={this.country} />
-                            <Form.Control.Feedback type="invalid">
-                                Please enter your country.
-                            </Form.Control.Feedback>
+                            <Form.Control required as="select" ref={this.country} >
+                               {
+                                   Object.keys(GeoData).map(item => 
+                                    <option key={item}>
+                                        {item}
+                                    </option>)
+                               }
+                            </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="validationCity">
                             <Form.Label>City</Form.Label>
-                            <Form.Control required type="text" placeholder="Lund" ref={this.city} />
-                            <Form.Control.Feedback type="invalid">
-                                Please enter your city.
-                            </Form.Control.Feedback>
+                            <Form.Control required as="select" ref={this.city} >
+                               {
+                                   Object.keys(GeoData).map(item => 
+                                    <option key={item}>
+                                        {item}
+                                    </option>)
+                               }
+                            </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="validationTimezone">
                             <Form.Label>Timezone</Form.Label>
