@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { InputGroup, FormControl } from 'react-bootstrap';
+import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import FriendCard from '../components/FriendCard';
 import InputRange from 'react-input-range';
 import Moment from 'moment-timezone/builds/moment-timezone-with-data'
@@ -10,6 +10,10 @@ import '../css/search.css'
 
 
 export default class Friends extends Component {
+    constructor(props){
+        super(props)
+        this.sortByTimezone = this.sortByTimezone.bind(this)
+    }
     state = {
         data: [],
         search: '',
@@ -22,8 +26,8 @@ export default class Friends extends Component {
         this.setState({ search: e.target.value.toLowerCase() })
     }
 
-    componentDidMount() {
-        this.getData();
+    async componentDidMount() {
+        await this.getData();
 
         // this.storeSubscriber = function (changes, store) {
         //     console.log("I am the App. I see that this happend in store", changes);
@@ -35,10 +39,15 @@ export default class Friends extends Component {
         this.setState({ data })
     }
 
+    sortByTimezone(){
+        this.state.data.sort((a,b ) => a.location.timezone.localeCompare(b.location.timezone));
+        console.log(this.state.data);
+    }
+
 
     render() {
-        this.state.sortByFirstName ? this.state.data.sort((a, b) =>
-            a.name.firstName.localeCompare(b.name.firstName)) :
+        this.state.sortByFirstName ? 
+            this.state.data.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) :
             this.state.data.sort((a, b) => a.name.lastName.localeCompare(b.name.lastName))
 
         const filteredData = this.state.data.filter(friend =>
@@ -53,8 +62,9 @@ export default class Friends extends Component {
                 <div className="col-10 offset-1">
                     <div className="d-flex row justify-content-around">
                         <InputGroup size="md" className="col-12 col-sm-4 p-0" >
-                            <FormControl placeholder="Search..." onChange={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+                            <FormControl placeholder="Search..." onKeyUp={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                         </InputGroup>
+                        <Button onClick={this.sortByTimezone}>Sort Timezone</Button>
                         <BootstrapSwitchButton
                             checked={true}
                             onlabel='First Name'
