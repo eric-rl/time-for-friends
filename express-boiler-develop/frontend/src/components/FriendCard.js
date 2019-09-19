@@ -16,7 +16,7 @@ export default class FriendCard extends Component {
         return (
             <div className='br3 ma2 dib bw2 shadow-5'>
                 <CardGroup>
-                    <Card style={{ width: '16rem' }} className="over-lay">
+                    <Card style={{ width: '13rem' }} className="over-lay">
                         <Link to={{
                             pathname: friendLink,
                             friendData: {
