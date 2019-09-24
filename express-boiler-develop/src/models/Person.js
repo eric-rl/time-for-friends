@@ -10,10 +10,16 @@ let personSchema = new Schema({
     },
     phoneNumber: String,
     email: String,
+    workStart: String,
+    workEnd: String,
+    sleepStart: String,
+    sleepEnd: String,
     location: {
         country: String,
         timezone: String,
-        city: String
+        city: String,
+        lng: Number,
+        lat: Number
     }
 });
 
