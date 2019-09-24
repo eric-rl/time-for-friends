@@ -114,11 +114,11 @@
     "email": "ctayler6@acquirethisname.com",
     "phoneNumber": "+33 780 672 1220",
     "location": {
-      "city": "Paris 18",
+      "city": "Paris",
       "country": "France",
       "timezone": "Europe/Paris",
-      "lng": 5.8978018,
-      "lat": 43.4945737
+      "lng": 2.8978018,
+      "lat": 48.4945737
     },
     "workStart": "8:25",
     "workEnd": "17:58",

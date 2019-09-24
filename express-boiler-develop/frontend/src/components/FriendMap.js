@@ -14,15 +14,8 @@ class FriendMap extends Component {
 
     async getData() {
         let data = await (await fetch("/api/person")).json()
-        this.setState({ data })
-
-
-        let getMarkerPoints = []
-        for (let p of this.state.data) {
-            getMarkerPoints.push(await (await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${p.location.city}&${p.location.country}&key=AIzaSyB4pPsphC1Am-jN9AYwCaUZ3gYsDnSSOtE`)).json())
-        }
-        this.setState({ loading: false, markerPoints: getMarkerPoints })
-        console.log(this.state.markerPoints)
+        this.setState({ data, loading: false })
+        console.log(data)
     }
 
     render() {
@@ -52,14 +45,14 @@ class FriendMap extends Component {
                             <div className="sk-circle12 sk-child"></div>
                         </div>) :
                             (
-                                this.state.markerPoints.map(city => (
+                                this.state.data.map(city => (
 
                                     <Marker
-                                        key={this.state.markerPoints.indexOf(city)}
-                                        title={city.results[0].address_components[0].long_name}
+                                        key={this.state.data.indexOf(city)}
+                                        title={city.location.city}
                                         position={{
-                                            lat: city.results[0].geometry.location.lat,
-                                            lng: city.results[0].geometry.location.lng
+                                            lat: city.location.lat,
+                                            lng: city.location.lng
                                         }}
                                     ></Marker>
                                 ))
