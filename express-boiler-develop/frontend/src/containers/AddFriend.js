@@ -143,7 +143,7 @@ export default class AddFriend extends Component {
                     <div className="column col-12 col-md-6">
                         <Form.Group controlId="validationCountry">
                             <Form.Label>Country</Form.Label>
-                            <Form.Control required as="select" onChange={this.handleChange.bind(this)} ref={this.country} >
+                            <Form.Control required as="select" onChange={this.handleChange} ref={this.country} >
                                 {
                                     Object.keys(GeoData).map(item =>
                                         <option key={item} >
