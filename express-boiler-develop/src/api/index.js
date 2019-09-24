@@ -8,7 +8,8 @@ innit.eraseData();
 
 
 const dbModels = {
-    person: require('../models/Person')
+    person: require('../models/Person'),
+    timezones: require('../models/Timezone')
 }
 // router.put('/api/test/:id', async (req, res) => {
 //     let person = await dbModels.person.findOne({ _id: req.params.id });
@@ -19,13 +20,19 @@ const dbModels = {
 //     res.json(person);
 // });
 
+
 router.get('/api/:entity', async (req, res) => {
     let result = await dbModels[req.params.entity].find();
     res.json(result);
 });
 
-router.get('/api/:entity/:id', async (req, res) => {
-    let result = await dbModels[req.params.entity].findOne({ _id: req.params.id });
+// router.get('/api/:entity/:id', async (req, res) => {
+//     let result = await dbModels[req.params.entity].findOne({ _id: req.params.id });
+//     res.json(result);
+// })
+
+router.get('api/:entity/:name', async (req, res) => {
+    let result = await dbModels[req.params.entity].findOne({ name: req.params.name })
     res.json(result);
 })
 
