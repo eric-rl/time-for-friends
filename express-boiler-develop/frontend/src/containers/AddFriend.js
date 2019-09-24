@@ -39,7 +39,7 @@ export default class AddFriend extends Component {
                 uniqueCities = [...new Set(GeoData[this.state.country])]
                 this.setState({ uniqueCities })
 
-            }, 200)
+            }, 10)
             this.getTimezones(event.target.value)
         } else {
             this.setState({uniqueCities: [], selectedTimezone: []})
@@ -53,6 +53,9 @@ export default class AddFriend extends Component {
     }
 
     async dataCheck() {
+
+        let longLat = await (await fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+ this.city.current.value +'+'+this.country.current.value+ '&key=AIzaSyB4pPsphC1Am-jN9AYwCaUZ3gYsDnSSOtE')).json();
+        console.log(longLat.results[0].geometry.location)
         let data = {
             name: {
                 firstName: this.firstName.current.value,
@@ -61,7 +64,9 @@ export default class AddFriend extends Component {
             location: {
                 timezone: this.timezone.current.value,
                 country: this.country.current.value,
-                city: this.city.current.value
+                city: this.city.current.value,
+                lng: longLat.results[0].geometry.location.lng,
+                lat: longLat.results[0].geometry.location.lat
             },
             email: this.email.current.value,
             phoneNumber: this.phoneNumber.current.value,
