@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import GeoData from '../utilities/GeoData.json'
+import InputRange from 'react-input-range';
 
 
 export default class AddFriend extends Component {
@@ -8,7 +9,9 @@ export default class AddFriend extends Component {
     state = {
         validated: false,
         country: 'Sweden',
-        uniqueCities: []
+        uniqueCities: [],
+        workValue: { min: 0, max: 23 },
+        sleepValue: { min: 0, max: 23 }
     }
 
     constructor(props) {
@@ -20,6 +23,9 @@ export default class AddFriend extends Component {
         this.timezone = React.createRef();
         this.country = React.createRef();
         this.city = React.createRef();
+        this.workTime = React.createRef();
+        this.sleepStart = React.createRef();
+        this.sleepEnd = React.createRef();
         this.handleChange = this.handleChange.bind(this)
     }
 
@@ -30,7 +36,7 @@ export default class AddFriend extends Component {
             console.log('state', this.state.country)
             let uniqueCities = []
             uniqueCities = [...new Set(GeoData[this.state.country])]
-            this.setState({uniqueCities})
+            this.setState({ uniqueCities })
             console.log(uniqueCities);
 
         }, 200)
@@ -49,7 +55,11 @@ export default class AddFriend extends Component {
                 city: this.city.current.value
             },
             email: this.email.current.value,
-            phoneNumber: this.phoneNumber.current.value
+            phoneNumber: this.phoneNumber.current.value,
+            workStart: this.state.workValue.min,
+            workEnd: this.state.workValue.max,
+            sleepStart: this.sleepStart.current.value,
+            sleepEnd: this.sleepEnd.current.value,
         }
 
         let result = await fetch('/api/person', {
@@ -80,6 +90,9 @@ export default class AddFriend extends Component {
 
 
     render() {
+
+        console.log(this.state.workValue);
+        console.log(this.state.sleepValue);
 
         return (
             <div className="justify-center tc">
@@ -114,6 +127,17 @@ export default class AddFriend extends Component {
                                 Enter your phone number.
                             </Form.Control.Feedback>
                         </Form.Group>
+                        <Form.Group controlId="ValidationWork">
+                            <Form.Label>Work Time</Form.Label>
+                            <InputRange
+                                maxValue={23}
+                                minValue={0}
+                                value={this.state.workValue}
+                                onChange={value => this.setState({ workValue: value })} />
+                        </Form.Group>
+                        <Button type="submit" variant="primary">
+                        Submit
+                    </Button>
                     </div>
                     <div className="column col-12 col-md-6">
                         <Form.Group controlId="validationCountry">
@@ -131,11 +155,11 @@ export default class AddFriend extends Component {
                             <Form.Label>City</Form.Label>
                             <Form.Control required as="select" ref={this.city} >
                                 {
-                                   this.state.uniqueCities.map(item => 
-                                    <option key={item}>
-                                        {item}
-                                    </option>)
-                               }
+                                    this.state.uniqueCities.map(item =>
+                                        <option key={item}>
+                                            {item}
+                                        </option>)
+                                }
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="validationTimezone">
@@ -148,10 +172,66 @@ export default class AddFriend extends Component {
                                 <option>America/Montreal</option>
                             </Form.Control>
                         </Form.Group>
+                        <Form.Group controlId="ValidationSleep">
+                            <Form.Label>Sleep Start</Form.Label>
+                            <Form.Control required as="select" ref={this.sleepStart} >
+                                <option>00:00</option>
+                                <option>01:00</option>
+                                <option>02:00</option>
+                                <option>03:00</option>
+                                <option>04:00</option>
+                                <option>05:00</option>
+                                <option>06:00</option>
+                                <option>07:00</option>
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                                <option>23:00</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="ValidationSleep">
+                            <Form.Label>Sleep End</Form.Label>
+                            <Form.Control required as="select" ref={this.sleepEnd} >
+                                <option>00:00</option>
+                                <option>01:00</option>
+                                <option>02:00</option>
+                                <option>03:00</option>
+                                <option>04:00</option>
+                                <option>05:00</option>
+                                <option>06:00</option>
+                                <option>07:00</option>
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                                <option>23:00</option>
+                            </Form.Control>
+                        </Form.Group>
+                    
                     </div>
-                    <Button type="submit" variant="primary">
-                        Submit
-                    </Button>
                 </Form>
             </div>
         )
