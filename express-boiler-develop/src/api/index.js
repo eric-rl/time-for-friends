@@ -26,15 +26,16 @@ router.get('/api/:entity', async (req, res) => {
     res.json(result);
 });
 
-// router.get('/api/:entity/:id', async (req, res) => {
-//     let result = await dbModels[req.params.entity].findOne({ _id: req.params.id });
-//     res.json(result);
-// })
-
-router.get('api/:entity/:name', async (req, res) => {
-    let result = await dbModels[req.params.entity].findOne({ name: req.params.name })
+router.get('/api/timezones/:name', async (req, res) => {
+    let result = await dbModels["timezones"].findOne({ name: req.params.name })
     res.json(result);
 })
+
+router.get('/api/:entity/:id', async (req, res) => {
+    let result = await dbModels[req.params.entity].findOne({ _id: req.params.id });
+    res.json(result);
+})
+
 
 router.post('/api/:entity', async (req, res) => {
     let newInstance = await new dbModels[req.params.entity](req.body);
