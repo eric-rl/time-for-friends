@@ -10,7 +10,7 @@ import '../css/search.css'
 
 
 export default class Friends extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.sortByTimezone = this.sortByTimezone.bind(this)
     }
@@ -28,25 +28,20 @@ export default class Friends extends Component {
 
     async componentDidMount() {
         await this.getData();
-
-        // this.storeSubscriber = function (changes, store) {
-        //     console.log("I am the App. I see that this happend in store", changes);
-        // }
-        // store.subscribeToChanges(this.storeSubscriber)
     }
+
     async getData() {
         let data = await (await fetch("/api/person")).json()
         this.setState({ data })
     }
 
-    sortByTimezone(){
-        this.state.data.sort((a,b ) => a.location.timezone.localeCompare(b.location.timezone));
+    sortByTimezone() {
+        this.state.data.sort((a, b) => a.location.timezone.localeCompare(b.location.timezone));
         console.log(this.state.data);
     }
 
-
     render() {
-        this.state.sortByFirstName ? 
+        this.state.sortByFirstName ?
             this.state.data.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) :
             this.state.data.sort((a, b) => a.name.lastName.localeCompare(b.name.lastName))
 

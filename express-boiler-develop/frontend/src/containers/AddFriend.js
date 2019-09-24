@@ -11,7 +11,8 @@ export default class AddFriend extends Component {
         country: 'Sweden',
         uniqueCities: [],
         workValue: { min: 0, max: 23 },
-        sleepValue: { min: 0, max: 23 }
+        sleepValue: { min: 0, max: 23 },
+        selectedTimezone: []
     }
 
     constructor(props) {
@@ -33,14 +34,18 @@ export default class AddFriend extends Component {
         this.setState({ country: event.target.value })
 
         setTimeout(() => {
-            console.log('state', this.state.country)
             let uniqueCities = []
             uniqueCities = [...new Set(GeoData[this.state.country])]
             this.setState({ uniqueCities })
-            console.log(uniqueCities);
 
         }, 200)
-        console.log('target value', event.target.value)
+        this.getTimezones(event.target.value)
+    }
+
+    async getTimezones(country) {
+        let data = await (await fetch("/api/timezones/" + country)).json()
+        this.setState({ selectedTimezone: data })
+        console.log(this.state.selectedTimezone.timezones)
     }
 
     async dataCheck() {
@@ -90,10 +95,6 @@ export default class AddFriend extends Component {
 
 
     render() {
-
-        console.log(this.state.workValue);
-        console.log(this.state.sleepValue);
-
         return (
             <div className="justify-center tc">
                 <h1 className='f1'>Add friend</h1>
@@ -136,7 +137,7 @@ export default class AddFriend extends Component {
                                 onChange={value => this.setState({ workValue: value })} />
                         </Form.Group>
                         <Button type="submit" variant="primary">
-                        Submit
+                            Submit
                     </Button>
                     </div>
                     <div className="column col-12 col-md-6">
@@ -155,21 +156,24 @@ export default class AddFriend extends Component {
                             <Form.Label>City</Form.Label>
                             <Form.Control required as="select" ref={this.city} >
                                 {
-                                    this.state.uniqueCities.map(item =>
-                                        <option key={item}>
-                                            {item}
-                                        </option>)
+                                    this.state.uniqueCities.length === 0 ? <option>Select country</option> :
+                                        this.state.uniqueCities.map(item =>
+                                            <option key={item}>
+                                                {item}
+                                            </option>)
                                 }
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="validationTimezone">
                             <Form.Label>Timezone</Form.Label>
-                            <Form.Control required as="select" ref={this.timezone} >
-                                <option>Europe/Oslo</option>
-                                <option>Africa/Accra</option>
-                                <option>America/New_York</option>
-                                <option>Asia/Chongqing</option>
-                                <option>America/Montreal</option>
+                            <Form.Control required as="select" ref={this.timezone} >7
+                                {
+                                    this.state.selectedTimezone.timezones === undefined ? <option>Select country</option> :
+                                        this.state.selectedTimezone.timezones.map(item =>
+                                            <option key={item}>
+                                                {item}
+                                            </option>)
+                                }
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="ValidationSleep">
@@ -230,7 +234,7 @@ export default class AddFriend extends Component {
                                 <option>23:00</option>
                             </Form.Control>
                         </Form.Group>
-                    
+
                     </div>
                 </Form>
             </div>
