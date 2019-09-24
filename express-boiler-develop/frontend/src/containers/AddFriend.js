@@ -8,7 +8,7 @@ export default class AddFriend extends Component {
 
     state = {
         validated: false,
-        country: 'Sweden',
+        country: '',
         uniqueCities: [],
         workValue: { min: 0, max: 23 },
         sleepValue: { min: 0, max: 23 },
@@ -31,15 +31,19 @@ export default class AddFriend extends Component {
     }
 
     handleChange(event) {
-        this.setState({ country: event.target.value })
+        if(event.target.value !== "Select a country"){
+            this.setState({ country: event.target.value })
 
-        setTimeout(() => {
-            let uniqueCities = []
-            uniqueCities = [...new Set(GeoData[this.state.country])]
-            this.setState({ uniqueCities })
+            setTimeout(() => {
+                let uniqueCities = []
+                uniqueCities = [...new Set(GeoData[this.state.country])]
+                this.setState({ uniqueCities })
 
-        }, 200)
-        this.getTimezones(event.target.value)
+            }, 200)
+            this.getTimezones(event.target.value)
+        } else {
+            this.setState({uniqueCities: [], selectedTimezone: []})
+        }   
     }
 
     async getTimezones(country) {
@@ -95,6 +99,7 @@ export default class AddFriend extends Component {
 
 
     render() {
+
         return (
             <div className="justify-center tc">
                 <h1 className='f1'>Add friend</h1>
@@ -156,7 +161,7 @@ export default class AddFriend extends Component {
                             <Form.Label>City</Form.Label>
                             <Form.Control required as="select" ref={this.city} >
                                 {
-                                    this.state.uniqueCities.length === 0 ? <option>Select country</option> :
+                                    this.state.uniqueCities.length === 0 ? <option>First select your country</option> :
                                         this.state.uniqueCities.map(item =>
                                             <option key={item}>
                                                 {item}
@@ -168,7 +173,7 @@ export default class AddFriend extends Component {
                             <Form.Label>Timezone</Form.Label>
                             <Form.Control required as="select" ref={this.timezone} >7
                                 {
-                                    this.state.selectedTimezone.timezones === undefined ? <option>Select country</option> :
+                                    this.state.selectedTimezone.timezones === undefined ? <option>First select your country</option> :
                                         this.state.selectedTimezone.timezones.map(item =>
                                             <option key={item}>
                                                 {item}
