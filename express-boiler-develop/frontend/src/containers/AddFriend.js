@@ -162,6 +162,9 @@ export default class AddFriend extends Component {
                                         </option>)
                                 }
                             </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                                Please select your country.
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="validationCity">
                             <Form.Label>City</Form.Label>
@@ -174,6 +177,9 @@ export default class AddFriend extends Component {
                                             </option>)
                                 }
                             </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                                Please select your city.
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="validationTimezone">
                             <Form.Label>Timezone</Form.Label>
@@ -186,6 +192,9 @@ export default class AddFriend extends Component {
                                             </option>)
                                 }
                             </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                                Please select your timezone.
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="ValidationSleep">
                             <Form.Label>Sleep Start</Form.Label>
@@ -247,10 +256,10 @@ export default class AddFriend extends Component {
                         </Form.Group>
 
                     </div>
-                </Form>
-                    <Button className="mt-4" onClick={this.handleSubmit} type="submit" variant="primary">
-                            Submit
+                    <Button className="mt-4" type="submit" variant="primary">
+                        Submit
                     </Button>
+                </Form>
             </div>
         )
     }
