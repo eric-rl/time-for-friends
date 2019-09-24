@@ -146,9 +146,6 @@ export default class AddFriend extends Component {
                                 value={this.state.workValue}
                                 onChange={value => this.setState({ workValue: value })} />
                         </Form.Group>
-                        <Button type="submit" variant="primary">
-                            Submit
-                    </Button>
                     </div>
                     <div className="column col-12 col-md-6">
                         <Form.Group controlId="validationCountry">
@@ -247,6 +244,9 @@ export default class AddFriend extends Component {
 
                     </div>
                 </Form>
+                    <Button className="mt-4" onClick={this.handleSubmit} type="submit" variant="primary">
+                            Submit
+                    </Button>
             </div>
         )
     }

@@ -49,7 +49,7 @@ class FriendMap extends Component {
 
                                     <Marker
                                         key={this.state.data.indexOf(city)}
-                                        title={city.location.city}
+                                        title={city.name.firstName}
                                         position={{
                                             lat: city.location.lat,
                                             lng: city.location.lng
