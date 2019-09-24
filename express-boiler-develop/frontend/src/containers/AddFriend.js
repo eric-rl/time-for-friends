@@ -31,7 +31,7 @@ export default class AddFriend extends Component {
     }
 
     handleChange(event) {
-        if(event.target.value !== "Select a country"){
+        if (event.target.value !== "Select a country") {
             this.setState({ country: event.target.value })
 
             setTimeout(() => {
@@ -42,8 +42,8 @@ export default class AddFriend extends Component {
             }, 10)
             this.getTimezones(event.target.value)
         } else {
-            this.setState({uniqueCities: [], selectedTimezone: []})
-        }   
+            this.setState({ uniqueCities: [], selectedTimezone: [] })
+        }
     }
 
     async getTimezones(country) {
@@ -54,52 +54,56 @@ export default class AddFriend extends Component {
 
     async dataCheck() {
 
-        let longLat = await (await fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+ this.city.current.value +'+'+this.country.current.value+ '&key=AIzaSyB4pPsphC1Am-jN9AYwCaUZ3gYsDnSSOtE')).json();
-        console.log(longLat.results[0].geometry.location)
-        let data = {
-            name: {
-                firstName: this.firstName.current.value,
-                lastName: this.lastName.current.value
-            },
-            location: {
-                timezone: this.timezone.current.value,
-                country: this.country.current.value,
-                city: this.city.current.value,
-                lng: longLat.results[0].geometry.location.lng,
-                lat: longLat.results[0].geometry.location.lat
-            },
-            email: this.email.current.value,
-            phoneNumber: this.phoneNumber.current.value,
-            workStart: this.state.workValue.min,
-            workEnd: this.state.workValue.max,
-            sleepStart: this.sleepStart.current.value,
-            sleepEnd: this.sleepEnd.current.value,
+        if (this.country.current.value !== "Select a country") {
+
+            let longLat = await (await fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.city.current.value + '+' + this.country.current.value + '&key=AIzaSyB4pPsphC1Am-jN9AYwCaUZ3gYsDnSSOtE')).json();
+            console.log(longLat.results[0].geometry.location)
+            let data = {
+                name: {
+                    firstName: this.firstName.current.value,
+                    lastName: this.lastName.current.value
+                },
+                location: {
+                    timezone: this.timezone.current.value,
+                    country: this.country.current.value,
+                    city: this.city.current.value,
+                    lng: longLat.results[0].geometry.location.lng,
+                    lat: longLat.results[0].geometry.location.lat
+                },
+                email: this.email.current.value,
+                phoneNumber: this.phoneNumber.current.value,
+                workStart: this.state.workValue.min,
+                workEnd: this.state.workValue.max,
+                sleepStart: this.sleepStart.current.value,
+                sleepEnd: this.sleepEnd.current.value,
+            }
+
+            let result = await fetch('/api/person', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            let id = await result.json()
+            await this.props.history.push('/friends/' + id._id)
+        } else {
+
         }
-
-        let result = await fetch('/api/person', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' }
-        });
-
-        let id = await result.json()
-        await this.props.history.push('/friends/' + id._id)
     }
 
 
 
     handleSubmit = event => {
         const form = event.currentTarget;
-        console.log(form.checkValidity());
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+            this.country.current.value = false
             this.setState({ validated: true });
         } else {
             event.preventDefault();
             this.dataCheck();
         }
-        console.log(this.state.validated)
     };
 
 
@@ -153,7 +157,7 @@ export default class AddFriend extends Component {
                             <Form.Control required as="select" onChange={this.handleChange} ref={this.country} >
                                 {
                                     Object.keys(GeoData).map(item =>
-                                        <option key={item} >
+                                        <option key={item}>
                                             {item}
                                         </option>)
                                 }
@@ -163,7 +167,7 @@ export default class AddFriend extends Component {
                             <Form.Label>City</Form.Label>
                             <Form.Control required as="select" ref={this.city} >
                                 {
-                                    this.state.uniqueCities.length === 0 ? <option>First select your country</option> :
+                                    this.state.uniqueCities.length === 0 ? <option value="">First select your country</option> :
                                         this.state.uniqueCities.map(item =>
                                             <option key={item}>
                                                 {item}
@@ -175,7 +179,7 @@ export default class AddFriend extends Component {
                             <Form.Label>Timezone</Form.Label>
                             <Form.Control required as="select" ref={this.timezone} >7
                                 {
-                                    this.state.selectedTimezone.timezones === undefined ? <option>First select your country</option> :
+                                    this.state.selectedTimezone.timezones === undefined ? <option value="">First select your country</option> :
                                         this.state.selectedTimezone.timezones.map(item =>
                                             <option key={item}>
                                                 {item}
