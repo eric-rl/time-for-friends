@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { InputGroup, FormControl } from 'react-bootstrap';
 import FriendCard from '../components/FriendCard';
 import InputRange from 'react-input-range';
 import Moment from 'moment-timezone/builds/moment-timezone-with-data'
@@ -66,7 +66,7 @@ export default class Friends extends Component {
                             onstyle='success'
                             offlabel='Last Name'
                             offstyle='danger'
-                            style='col-12 col-sm-4'
+                            style={'col-12 col-sm-4'}
                             onChange={(checked) => {
                                 this.setState({ sortByFirstName: checked })
                             }}

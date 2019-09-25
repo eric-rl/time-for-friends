@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 import CardGroup from 'react-bootstrap/CardGroup'
 import Clock from './Clock.js'
+import Available from './Available.js'
+
 
 export default class FriendCard extends Component {
 
@@ -28,8 +30,13 @@ export default class FriendCard extends Component {
                                 <Card.Title className="digital-font">{this.props.name.firstName} {this.props.name.lastName}</Card.Title>
                                 <Card.Text className="digital-font">{this.props.location.country}</Card.Text>
                                 <Clock timeZone={this.props.location.timezone}></Clock>
-
+                                <Available availableData={{ workStart: this.props.workStart, 
+                                    workEnd: this.props.workEnd, 
+                                    sleepStart: this.props.sleepStart, 
+                                    sleepEnd: this.props.sleepStart,
+                                    timeZone: this.props.location.timezone}}></Available>
                             </Card.Body>
+
                         </Link>
                     </Card>
                 </CardGroup>
