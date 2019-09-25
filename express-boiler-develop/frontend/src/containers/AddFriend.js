@@ -1,18 +1,24 @@
 import React, { Component } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import GeoData from '../utilities/GeoData.json'
-import InputRange from 'react-input-range';
 
 
 export default class AddFriend extends Component {
-
+    hours = [
+        '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00',
+        '03:30', '04:00', '04:30', '05:00', '05:30', '06:00', '06:30',
+        '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00',
+        '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
+        '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00',
+        '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30',
+        '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'
+    ]
     state = {
         validated: false,
         country: '',
         uniqueCities: [],
-        workValue: { min: 0, max: 23 },
-        sleepValue: { min: 0, max: 23 },
-        selectedTimezone: []
+        selectedTimezone: [],
+        sleepWorkError: false
     }
 
     constructor(props) {
@@ -24,7 +30,8 @@ export default class AddFriend extends Component {
         this.timezone = React.createRef();
         this.country = React.createRef();
         this.city = React.createRef();
-        this.workTime = React.createRef();
+        this.workStart = React.createRef();
+        this.workEnd = React.createRef();
         this.sleepStart = React.createRef();
         this.sleepEnd = React.createRef();
         this.handleChange = this.handleChange.bind(this)
@@ -53,7 +60,6 @@ export default class AddFriend extends Component {
     }
 
     async dataCheck() {
-
         if (this.country.current.value !== "Select a country") {
 
             let longLat = await (await fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.city.current.value + '+' + this.country.current.value + '&key=AIzaSyB4pPsphC1Am-jN9AYwCaUZ3gYsDnSSOtE')).json();
@@ -72,8 +78,8 @@ export default class AddFriend extends Component {
                 },
                 email: this.email.current.value,
                 phoneNumber: this.phoneNumber.current.value,
-                workStart: this.state.workValue.min,
-                workEnd: this.state.workValue.max,
+                workStart: this.workStart.current.value,
+                workEnd: this.workEnd.current.value,
                 sleepStart: this.sleepStart.current.value,
                 sleepEnd: this.sleepEnd.current.value,
             }
@@ -86,8 +92,6 @@ export default class AddFriend extends Component {
 
             let id = await result.json()
             await this.props.history.push('/friends/' + id._id)
-        } else {
-
         }
     }
 
@@ -98,12 +102,18 @@ export default class AddFriend extends Component {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-            this.country.current.value = false
             this.setState({ validated: true });
+        }
+        else if (this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.setState({ validated: true });
+            this.setState({ sleepWorkError: true })
         } else {
             event.preventDefault();
             this.dataCheck();
         }
+        event.preventDefault();
     };
 
 
@@ -143,12 +153,18 @@ export default class AddFriend extends Component {
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="ValidationWork">
-                            <Form.Label>Work Time</Form.Label>
-                            <InputRange
-                                maxValue={23}
-                                minValue={0}
-                                value={this.state.workValue}
-                                onChange={value => this.setState({ workValue: value })} />
+                            <Form.Label>Work Start</Form.Label>
+                            <Form.Control required as="select" ref={this.workStart} >
+                                {this.hours.map(item =>
+                                    <option key={item}>{item}</option>)}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="ValidationWork">
+                            <Form.Label>Work End</Form.Label>
+                            <Form.Control required as="select" ref={this.workEnd} >
+                                {this.hours.map(item =>
+                                    <option key={item}>{item}</option>)}
+                            </Form.Control>
                         </Form.Group>
                     </div>
                     <div className="column col-12 col-md-6">
@@ -199,66 +215,29 @@ export default class AddFriend extends Component {
                         <Form.Group controlId="ValidationSleep">
                             <Form.Label>Sleep Start</Form.Label>
                             <Form.Control required as="select" ref={this.sleepStart} >
-                                <option>00:00</option>
-                                <option>01:00</option>
-                                <option>02:00</option>
-                                <option>03:00</option>
-                                <option>04:00</option>
-                                <option>05:00</option>
-                                <option>06:00</option>
-                                <option>07:00</option>
-                                <option>08:00</option>
-                                <option>09:00</option>
-                                <option>10:00</option>
-                                <option>11:00</option>
-                                <option>12:00</option>
-                                <option>13:00</option>
-                                <option>14:00</option>
-                                <option>15:00</option>
-                                <option>16:00</option>
-                                <option>17:00</option>
-                                <option>18:00</option>
-                                <option>19:00</option>
-                                <option>20:00</option>
-                                <option>21:00</option>
-                                <option>22:00</option>
-                                <option>23:00</option>
+                                {this.hours.map(item =>
+                                    <option key={item}>{item}</option>)}
                             </Form.Control>
                         </Form.Group>
+                        {
+                            this.state.sleepError === true && <p>Your sleep start must occur before your sleep end</p>
+                        }
                         <Form.Group controlId="ValidationSleep">
                             <Form.Label>Sleep End</Form.Label>
                             <Form.Control required as="select" ref={this.sleepEnd} >
-                                <option>00:00</option>
-                                <option>01:00</option>
-                                <option>02:00</option>
-                                <option>03:00</option>
-                                <option>04:00</option>
-                                <option>05:00</option>
-                                <option>06:00</option>
-                                <option>07:00</option>
-                                <option>08:00</option>
-                                <option>09:00</option>
-                                <option>10:00</option>
-                                <option>11:00</option>
-                                <option>12:00</option>
-                                <option>13:00</option>
-                                <option>14:00</option>
-                                <option>15:00</option>
-                                <option>16:00</option>
-                                <option>17:00</option>
-                                <option>18:00</option>
-                                <option>19:00</option>
-                                <option>20:00</option>
-                                <option>21:00</option>
-                                <option>22:00</option>
-                                <option>23:00</option>
+                                {this.hours.map(item =>
+                                    <option key={item}>{item}</option>)}
                             </Form.Control>
                         </Form.Group>
-
+                        {
+                            this.state.sleepWorkError === true && <p className="warningSleep">Your cant work and sleep at the same time... Damn u lazy</p>
+                        }
                     </div>
-                    <Button className="mt-4" type="submit" variant="primary">
+                    <div className="column col-12 flex justify-center">
+                    <Button className="mt-4 mb-4 " type="submit" variant="primary">
                         Submit
                     </Button>
+                    </div>
                 </Form>
             </div>
         )
