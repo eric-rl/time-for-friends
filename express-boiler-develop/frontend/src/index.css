@@ -107,6 +107,13 @@ hr{
   background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(rgb(0, 49, 112)), to(rgba(255, 255, 255, 0)));
 }
 
+.emoji-size{
+  font-size: 2em;
+  position: absolute;
+  left: 0;
+  margin-left: 4px;
+}
+
 
 
 

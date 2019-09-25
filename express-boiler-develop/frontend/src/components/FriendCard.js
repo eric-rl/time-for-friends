@@ -25,16 +25,17 @@ export default class FriendCard extends Component {
                                 friend: this.props
                             }
                         }}>
+                            <Available availableData={{ workStart: this.props.workStart, 
+                                    workEnd: this.props.workEnd, 
+                                    sleepStart: this.props.sleepStart, 
+                                    sleepEnd: this.props.sleepEnd,
+                                    timeZone: this.props.location.timezone}}></Available>
                             <Card.Img variant="top" alt="Hej" src={`https://robohash.org/${this.props._id}?size=200x200`} />
                             <Card.Body>
                                 <Card.Title className="digital-font">{this.props.name.firstName} {this.props.name.lastName}</Card.Title>
                                 <Card.Text className="digital-font">{this.props.location.country}</Card.Text>
                                 <Clock timeZone={this.props.location.timezone}></Clock>
-                                <Available availableData={{ workStart: this.props.workStart, 
-                                    workEnd: this.props.workEnd, 
-                                    sleepStart: this.props.sleepStart, 
-                                    sleepEnd: this.props.sleepStart,
-                                    timeZone: this.props.location.timezone}}></Available>
+                                
                             </Card.Body>
 
                         </Link>

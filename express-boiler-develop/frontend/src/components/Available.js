@@ -48,7 +48,7 @@ export default class Available extends Component {
                     return '😴'
 
                 case 'free':
-                    return '🥳'
+                    return '😎'
 
                 default:
                     return ''
@@ -61,7 +61,7 @@ export default class Available extends Component {
         return (
             <div>
 
-                <span >
+                <span className="emoji-size" >
                     {getEmoji()}
                 </span>
             </div>
