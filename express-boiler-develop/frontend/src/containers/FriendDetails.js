@@ -34,6 +34,12 @@ export default class FriendDetails extends Component {
                         <p>
                             City: {this.state.friend.location.city}
                         </p>
+                        <p>
+                            Work start: {this.state.friend.workStart}
+                        </p>
+                        <p>
+                            Work end: {this.state.friend.workEnd}
+                        </p>
                     </div>
                     <div className="column col-6 tc">
                         <p>
@@ -41,6 +47,12 @@ export default class FriendDetails extends Component {
                         </p>
                         <p>
                             Email: {this.state.friend.email}
+                        </p>
+                        <p>
+                            Sleep start: {this.state.friend.sleepStart}
+                        </p>
+                        <p>
+                            Sleep end: {this.state.friend.sleepEnd}
                         </p>
                     </div>
                     <div className="column col-6 flex justify-center align-items-center">

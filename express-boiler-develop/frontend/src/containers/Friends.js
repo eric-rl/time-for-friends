@@ -52,7 +52,7 @@ export default class Friends extends Component {
             Moment.tz(new Date(), friend.location.timezone).format("HH") < this.state.rangeValue.max);
 
         return (
-            <div className="col-12 col-sm-10 offset-sm-1">
+            <div className="col-12 col-sm-10 offset-sm-1 mb-5">
                 <h1 className='f1 tc'>My Friends</h1>
                 <div className="col-10 offset-1">
                     <div className="d-flex row justify-content-around">

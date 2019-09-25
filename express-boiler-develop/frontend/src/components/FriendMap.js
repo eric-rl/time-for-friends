@@ -24,7 +24,7 @@ class FriendMap extends Component {
                 <h1 className='f1 tc'>Friend Map</h1>
                 <div className="map-container">
                     <Map
-                        className="map-map"
+                        className="map-map mb-5"
                         google={this.props.google}
                         zoom={2}
                         initialCenter={{ lat: 20, lng: 1 }}

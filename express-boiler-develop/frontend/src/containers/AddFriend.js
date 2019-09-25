@@ -118,7 +118,6 @@ export default class AddFriend extends Component {
 
 
     render() {
-
         return (
             <div className="justify-center tc">
                 <h1 className='f1'>Add friend</h1>
@@ -234,7 +233,7 @@ export default class AddFriend extends Component {
                         }
                     </div>
                     <div className="column col-12 flex justify-center">
-                    <Button className="mt-4 mb-4 " type="submit" variant="primary">
+                    <Button className="mt-4 mb-5" type="submit" variant="primary">
                         Submit
                     </Button>
                     </div>
