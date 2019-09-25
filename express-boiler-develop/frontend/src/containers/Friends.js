@@ -26,33 +26,35 @@ export default class Friends extends Component {
 
     handleToggleChange = e => {
         this.setState({ sortValue: e })
+        this.sortFriends()
     }
 
     async componentDidMount() {
         await this.getData();
-        this.setState({ data: this.state.data.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) })
+        this.setState({ sortedAndFilteredData: this.state.sortedAndFilteredData.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) })
     }
 
     async getData() {
-        let data = await (await fetch("/api/person")).json()
-        this.setState({ data })
+        let sortedAndFilteredData = await (await fetch("/api/person")).json()
+        this.setState({ sortedAndFilteredData })
     }
 
     sortFriends() {
+        console.log(this.state.sortValue);
         switch (this.state.sortValue) {
             case 1:
-                return this.setState({ sortedAndFilteredData : this.state.data.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) })
+                return this.setState({ sortedAndFilteredData : this.state.sortedAndFilteredData.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) })
             case 2:
-                return this.setState({ sortedAndFilteredData : this.state.data.sort((a, b) => a.name.lastName.localeCompare(b.name.lastName)) })
+                return this.setState({ sortedAndFilteredData : this.state.sortedAndFilteredData.sort((a, b) => a.name.lastName.localeCompare(b.name.lastName)) })
             case 3:
-                return this.setState({ sortedAndFilteredData : this.state.data.sort((a, b) => a.location.timezone.localeCompare(b.location.timezone)) })
+                return this.setState({ sortedAndFilteredData : this.state.sortedAndFilteredData.sort((a, b) => a.location.timezone.localeCompare(b.location.timezone)) })
             default:
                 return
         }
     }
 
     filterFriends() {
-        const filteredData = this.state.data.filter(friend =>
+        const filteredData = this.state.sortedAndFilteredData.filter(friend =>
             (friend.name.firstName.toLowerCase().startsWith(this.state.search) ||
                 friend.name.lastName.toLowerCase().startsWith(this.state.search)) &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") >= this.state.rangeValue.min &&
@@ -62,6 +64,8 @@ export default class Friends extends Component {
     }
 
     render() {
+        console.log("sortedandfilterd", this.state.sortedAndFilteredData);
+        console.log('sortvalue', this.state.sortValue);
 
         // this.state.sortByFirstName ?
         //     this.state.data.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) :
@@ -87,7 +91,7 @@ export default class Friends extends Component {
                                 this.setState({ sortByFirstName: checked })
                             }}
                         /> */}
-                        <ToggleButtonGroup name="hej" type="radio" value={this.state.sortValue} onClick={this.sortFriends} onChange={this.handleToggleChange}>
+                        <ToggleButtonGroup name="hej" type="radio" value={this.state.sortValue} onChange={this.handleToggleChange}>
                             <ToggleButton value={1}>First name</ToggleButton>
                             <ToggleButton value={2}>Last name</ToggleButton>
                             <ToggleButton value={3}>Timezone</ToggleButton>
