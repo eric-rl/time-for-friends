@@ -1,29 +1,23 @@
-// const subscribingFunctions = [];
-// const store = {};
+import React from 'react'
 
-// // Don't set properties in store directly. Use store.setState()
+export const Store = React.createContext();
 
-// store.setState = (changeObject) => {
-//     // Transfer changes to store object
-//     Object.assign(store, changeObject)
-//     // Notify all subscribers of changes
-//     for (let subscriber of subscribingFunctions) {
-//         subscriber(changeObject, store)
-//     }
-// };
+const initialState = {
+    friends: []
+}
 
-// // A subscribing function hould be ready to recieve to arguments
-// // the changes and the new state of store
-// store.subscribeToChanges = (func) => {
-//     subscribingFunctions.push(func);
-// }
+function reducer(state, action) {
+    switch (action.type) {
+        case 'FETCH_DATA':
+            return { ...state, friends: action.payload };
+        default:
+            return state;
+    }
+}
 
-// store.unsubscribeToChanges = (func) => {
-//     // Find and remove subscribing
-//     let index = subscribingFunctions.indexOf(func);
-//     if (index < 0) { return; }
-//     subscribingFunctions.splice(index, 1)
-// }
-
-
-// export default store;
+export function StoreProvider(props) {
+    const [state, dispatch] = React.useReducer(reducer, initialState);
+    const value = { state, dispatch };
+    return <Store.Provider value={value}>{props.children}
+    </Store.Provider>
+}

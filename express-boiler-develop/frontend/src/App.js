@@ -1,38 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-
 import FriendMap from './components/FriendMap';
-// import store from './utilities/Store';
+import { Store } from './utilities/Store';
 
 
-export default class App extends Component {
+export default function App() {
+  const { state, dispatch } = React.useContext(Store);
 
-  sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  const fetchDataAction = async () => {
+    const data = await fetch("/api/person");
+    const dataJSON = await data.json();
+    return dispatch({
+      type: 'FETCH_DATA',
+      payload: dataJSON
+    });
+  };
 
-  // async componentDidMount() {
-  //   this.storeSubscriber = function (changes, store) {
-  //     console.log("I am the App. I see that this happend in store", changes);
-  //   }
-  //   store.subscribeToChanges(this.storeSubscriber)
-  //   let co = 1;
-  //   while(true){
-  //     await this.sleep(1000);
-  //     store.setState({counter: co});
-  //     co++;
-  //   }
-  // }
+  React.useEffect(() => {
+    state.friends.length === 0 && fetchDataAction();
+  });
 
 
+  return (
+    <div className="App">
+      {/* {console.log(state)} */}
+      <FriendMap className="col-10 offset-1" />
+    </div>
+  );
 
-  render() {
-    return (
-      <div className="App">
-        <FriendMap className="col-10 offset-1"/>
-      </div>
-    );
-  }
 
 }
 

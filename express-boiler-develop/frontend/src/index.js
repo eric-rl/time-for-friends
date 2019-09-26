@@ -8,19 +8,21 @@ import Friends from './containers/Friends';
 import AddFriends from './containers/AddFriend';
 import Navigation from './components/Navigationbar';
 import FriendDetails from './containers/FriendDetails';
+import { StoreProvider } from './utilities/Store';
 
 
 const routing = (
-    <Router>
-        <div>
-            <Navigation />
-            <Route exact path="/" component={App} />
-            <Route exact path="/friends" component={Friends} />
-            <Route path="/add-friend" component={AddFriends} />
-            <Route path="/friends/:id" component={FriendDetails}></Route>
-        </div>
-
-    </Router>
+    <StoreProvider>
+        <Router>
+            <div>
+                <Navigation />
+                <Route exact path="/" component={App} />
+                <Route exact path="/friends" component={Friends} />
+                <Route path="/add-friend" component={AddFriends} />
+                <Route path="/friends/:id" component={FriendDetails}></Route>
+            </div>
+        </Router>
+    </StoreProvider>
 )
 
 ReactDOM.render(routing, document.getElementById('root'));
