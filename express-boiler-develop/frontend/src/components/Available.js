@@ -22,10 +22,6 @@ export default class Available extends Component {
 
     async updateAvailable() {
         const { workStart, workEnd, sleepStart, sleepEnd, timeZone } = this.props.availableData;
-        console.log('sleepStart: ', sleepStart);
-        console.log('sleepEnd: ', sleepEnd)
-        console.log('worrkStart: ', workStart)
-        console.log('workEnd: ', workEnd)
         while (this._isMounted) {
             let time = Moment.tz(new Date(Date.now()), timeZone).format("HH:mm");
             this.setState({ available: 'free' })
@@ -47,23 +43,6 @@ export default class Available extends Component {
                     this.setState({ available: 'sleep' })
                 }
             }
-
-
-
-
-
-            // if (time >= workStart && time < workEnd) {
-            //     this.setState({ available: 'work' })
-            // }else if (time >= sleepStart && time < sleepEnd) {
-            //     console.log('Sleeping before 00:00', sleepStart, sleepEnd)
-            //     this.setState({ available: 'sleep' })
-            // } else if (time > '00:00' && time < sleepEnd) {
-            //     console.log('sleeping after 00:00')
-            //     this.setState({ available: 'sleep' })
-
-            // } else {
-            //     this.setState({ available: 'free' })
-            // }
             await this.sleep(1000);
         }
 
@@ -89,8 +68,6 @@ export default class Available extends Component {
 
         }
 
-
-        // console.log(this.state.available);
         return (
             <div>
 

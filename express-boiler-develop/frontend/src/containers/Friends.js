@@ -4,9 +4,7 @@ import FriendCard from '../components/FriendCard';
 import InputRange from 'react-input-range';
 import Moment from 'moment-timezone/builds/moment-timezone-with-data'
 import 'react-input-range/lib/css/index.css'
-import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import '../css/search.css'
-// import store from '../utilities/Store';
 
 
 export default class Friends extends Component {
@@ -24,13 +22,7 @@ export default class Friends extends Component {
     }
 
     handleToggleChange = e => {
-        console.log('e i handleToggleChange', e);
         this.setState({ sortValue: e })
-        setTimeout(() => {
-            console.log('i timout', this.state.sortValue)
-
-        }, 100)
-        console.log('sortValue i handleChange', this.state.sortValue);
         this.sortFriends(e)
     }
 
@@ -45,7 +37,6 @@ export default class Friends extends Component {
     }
 
     sortFriends(e) {
-        console.log('sortValue i sortFriends', e);
         switch (e) {
             case 1:
                 this.setState({ sortedAndFilteredData: this.state.sortedAndFilteredData.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) })
@@ -62,9 +53,6 @@ export default class Friends extends Component {
     }
 
     render() {
-        console.log("sortedandfilterd i render", this.state.sortedAndFilteredData);
-        console.log('sortvalue i render', this.state.sortValue);
-
         const filteredData = this.state.sortedAndFilteredData.filter(friend =>
             (friend.name.firstName.toLowerCase().startsWith(this.state.search) ||
                 friend.name.lastName.toLowerCase().startsWith(this.state.search)) &&
