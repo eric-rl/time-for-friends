@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { InputGroup, FormControl } from 'react-bootstrap';
+import { InputGroup, FormControl, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import FriendCard from '../components/FriendCard';
 import InputRange from 'react-input-range';
 import Moment from 'moment-timezone/builds/moment-timezone-with-data'
@@ -10,42 +10,62 @@ import '../css/search.css'
 
 
 export default class Friends extends Component {
-    constructor(props) {
-        super(props)
-        this.sortByTimezone = this.sortByTimezone.bind(this)
-    }
+
     state = {
-        data: [],
         search: '',
         rangeValue: { min: 0, max: 23 },
-        sortByFirstName: true
-
+        sortByFirstName: true,
+        sortValue: 1,
+        sortedAndFilteredData: []
     }
 
     handleChange = e => {
         this.setState({ search: e.target.value.toLowerCase() })
     }
 
+    handleToggleChange = e => {
+        console.log('e i handleToggleChange', e);
+        this.setState({ sortValue: e })
+        setTimeout(() => {
+            console.log('i timout', this.state.sortValue)
+
+        }, 100)
+        console.log('sortValue i handleChange', this.state.sortValue);
+        this.sortFriends(e)
+    }
+
     async componentDidMount() {
         await this.getData();
+        this.setState({ sortedAndFilteredData: this.state.sortedAndFilteredData.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) })
     }
 
     async getData() {
-        let data = await (await fetch("/api/person")).json()
-        this.setState({ data })
+        let sortedAndFilteredData = await (await fetch("/api/person")).json()
+        this.setState({ sortedAndFilteredData })
     }
 
-    sortByTimezone() {
-        this.state.data.sort((a, b) => a.location.timezone.localeCompare(b.location.timezone));
-        console.log(this.state.data);
+    sortFriends(e) {
+        console.log('sortValue i sortFriends', e);
+        switch (e) {
+            case 1:
+                this.setState({ sortedAndFilteredData: this.state.sortedAndFilteredData.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) })
+                break;
+            case 2:
+                this.setState({ sortedAndFilteredData: this.state.sortedAndFilteredData.sort((a, b) => a.name.lastName.localeCompare(b.name.lastName)) })
+                break;
+            case 3:
+                this.setState({ sortedAndFilteredData: this.state.sortedAndFilteredData.sort((a, b) => a.location.timezone.localeCompare(b.location.timezone)) })
+                break;
+            default:
+                return
+        }
     }
 
     render() {
-        this.state.sortByFirstName ?
-            this.state.data.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)) :
-            this.state.data.sort((a, b) => a.name.lastName.localeCompare(b.name.lastName))
+        console.log("sortedandfilterd i render", this.state.sortedAndFilteredData);
+        console.log('sortvalue i render', this.state.sortValue);
 
-        const filteredData = this.state.data.filter(friend =>
+        const filteredData = this.state.sortedAndFilteredData.filter(friend =>
             (friend.name.firstName.toLowerCase().startsWith(this.state.search) ||
                 friend.name.lastName.toLowerCase().startsWith(this.state.search)) &&
             Moment.tz(new Date(), friend.location.timezone).format("HH") >= this.state.rangeValue.min &&
@@ -59,18 +79,11 @@ export default class Friends extends Component {
                         <InputGroup size="md" className="col-12 col-sm-4 p-0" >
                             <FormControl placeholder="Search..." onKeyUp={this.handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                         </InputGroup>
-                        {/* <Button onClick={this.sortByTimezone}>Sort Timezone</Button> */}
-                        <BootstrapSwitchButton
-                            checked={true}
-                            onlabel='First Name'
-                            onstyle='success'
-                            offlabel='Last Name'
-                            offstyle='danger'
-                            style={'col-12 col-sm-4'}
-                            onChange={(checked) => {
-                                this.setState({ sortByFirstName: checked })
-                            }}
-                        />
+                        <ToggleButtonGroup name="hej" type="radio" value={this.state.sortValue} onChange={this.handleToggleChange}>
+                            <ToggleButton value={1}>First name</ToggleButton>
+                            <ToggleButton value={2}>Last name</ToggleButton>
+                            <ToggleButton value={3}>Timezone</ToggleButton>
+                        </ToggleButtonGroup>
                     </div>
                     <InputRange
                         maxValue={23}
@@ -80,7 +93,7 @@ export default class Friends extends Component {
                 </div>
                 <div className="tc" >
                     {
-                        filteredData.sort().map(item => <FriendCard className="friend-card" key={item._id}{...item}>
+                        filteredData.map(item => <FriendCard className="friend-card" key={item._id}{...item}>
                         </FriendCard>)
                     }
                 </div>
