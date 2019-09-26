@@ -25,7 +25,8 @@ export default class FriendCard extends Component {
                                 friend: this.props
                             }
                         }}>
-                            <Available availableData={{ workStart: this.props.workStart, 
+                            <Available availableData={{ 
+                                    workStart: this.props.workStart, 
                                     workEnd: this.props.workEnd, 
                                     sleepStart: this.props.sleepStart, 
                                     sleepEnd: this.props.sleepEnd,
