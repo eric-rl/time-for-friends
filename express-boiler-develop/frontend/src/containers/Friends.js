@@ -20,7 +20,6 @@ export default function Friends(props) {
     useEffect(() => {
         state.friends.length === 0 && fetchDataAction();
         setSortedAndFilteredData(state.friends.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)))
-        console.log(sortedAndFilteredData)
     });
 
     function handleChange(e) {
@@ -64,14 +63,14 @@ export default function Friends(props) {
         Moment.tz(new Date(), friend.location.timezone).format("HH") < rangeValue.max);
 
     return (
-        <div className="col-12 col-sm-10 offset-sm-1 mb-5">
+        <div className="col-12 col-sm-10 offset-sm-1 mb-5 p-0">
             <h1 className='f1 tc'>My Friends</h1>
-            <div className="col-10 offset-1">
+            <div className="col-12 col-md-10 offset-md-1">
                 <div className="d-flex row justify-content-around">
-                    <InputGroup size="md" className="col-12 col-sm-4 p-0" >
+                    <InputGroup size="md" className="col-11 col-lg-6 p-0" >
                         <FormControl placeholder="Search..." onKeyUp={handleChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                     </InputGroup>
-                    <ToggleButtonGroup name="hej" type="radio" value={sortValue} onChange={handleToggleChange}>
+                    <ToggleButtonGroup name="hej" className="col-11 col-lg-5 p-0 mt-3 mt-lg-0" type="radio" value={sortValue} onChange={handleToggleChange}>
                         <ToggleButton value={1}>First name</ToggleButton>
                         <ToggleButton value={2}>Last name</ToggleButton>
                         <ToggleButton value={3}>Timezone</ToggleButton>
@@ -81,7 +80,7 @@ export default function Friends(props) {
                     maxValue={23}
                     minValue={0}
                     value={rangeValue}
-                    onChange={value => setRangeValue( value ) } />
+                    onChange={value => setRangeValue(value)} />
             </div>
             <div className="tc" >
                 {

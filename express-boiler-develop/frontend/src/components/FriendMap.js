@@ -5,7 +5,6 @@ import { Store } from '../utilities/Store';
 
 function FriendMap(props) {
     const { state } = React.useContext(Store);
-    console.log(state.friends)
 
     return (
         <div className="col-10 offset-1">
