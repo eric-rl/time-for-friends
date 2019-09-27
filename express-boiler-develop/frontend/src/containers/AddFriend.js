@@ -126,7 +126,7 @@ export default class AddFriend extends Component {
         } else if(this.checkWorkSleep()) {
             console.log('det gick bra')
             event.preventDefault();
-            // this.dataCheck();
+            this.dataCheck();
         }
         event.preventDefault();
     };
