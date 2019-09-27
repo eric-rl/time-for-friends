@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import GeoData from '../utilities/GeoData.json'
+// import { truncate } from 'fs'
 
 
 export default class AddFriend extends Component {
@@ -95,23 +96,37 @@ export default class AddFriend extends Component {
         }
     }
 
+    checkWorkSleep(){
+        if(this.workStart.current.value < this.workEnd.current.value){
+            if(this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value){
+                return false
+            } else {
+                return true
+            }
+        } if(this.workStart.current.value > this.workEnd.current.value) {
+            if(this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value) {
+                return false
+            } else {
+                return true
+            }
+        }
+    }
+
 
 
     handleSubmit = event => {
         const form = event.currentTarget;
-        if (form.checkValidity() === false) {
+
+        if (!form.checkValidity() || !this.checkWorkSleep()) {
+            console.log("Fastnade")
             event.preventDefault();
             event.stopPropagation();
             this.setState({ validated: true });
-        }
-        else if (this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value) {
+            this.setState({sleepWorkError: true});
+        } else if(this.checkWorkSleep()) {
+            console.log('det gick bra')
             event.preventDefault();
-            event.stopPropagation();
-            this.setState({ validated: true });
-            this.setState({ sleepWorkError: true })
-        } else {
-            event.preventDefault();
-            this.dataCheck();
+            // this.dataCheck();
         }
         event.preventDefault();
     };
@@ -218,9 +233,6 @@ export default class AddFriend extends Component {
                                     <option key={item}>{item}</option>)}
                             </Form.Control>
                         </Form.Group>
-                        {
-                            this.state.sleepError === true && <p>Your sleep start must occur before your sleep end</p>
-                        }
                         <Form.Group controlId="ValidationSleep">
                             <Form.Label>Sleep End</Form.Label>
                             <Form.Control required as="select" ref={this.sleepEnd} >
