@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 class Navigationbar extends Component {
     render() {
         return (
-            <div>
+            <div className="d-none d-sm-block">
                         <div className="flex justify-center">
                             <NavLink className="nav-link" to="/" >Home</NavLink>
                             <NavLink className="nav-link" to="/friends">Friends</NavLink>
