@@ -116,7 +116,8 @@ hr{
 
 .warningSleep{
   color: red;
-  margin: -8px;
+  margin: -4px;
+  margin-top: -15px;
 }
 
 .navbar-nav{

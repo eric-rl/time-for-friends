@@ -32,11 +32,13 @@ export default class Register extends Component {
             password2
         }
 
-        let result = await fetch('/api/register', {
+        let registerUser = await fetch('/api/register', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
         });
+
+        let result = await registerUser.json()
         console.log(result);
     }
 

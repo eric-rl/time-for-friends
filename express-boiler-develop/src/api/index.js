@@ -62,7 +62,7 @@ router.post("/api/login", (req, res) => {
     User.findOne({ userName }).then(user => {
         // Check if user exists
         if (!user) {
-            return res.status(404).json({ userNamenotfound: "userName not found" });
+            return res.status(404).json({ userNamenotfound: "Username not found" });
         }
         // Check password
         bcrypt.compare(password, user.password).then(isMatch => {
