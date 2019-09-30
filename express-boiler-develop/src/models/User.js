@@ -4,12 +4,13 @@ const Schema = mongoose.Schema;
 
 let userSchema = new Schema({
 
-    userName: String,
-    password: String
+  userName: String,
+  password: String
+
 
 })
 
-class UserClass{
+class UserClass {
 
 }
 

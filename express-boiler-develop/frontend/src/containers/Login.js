@@ -7,32 +7,24 @@ export default class Register extends Component {
         super(props)
         this.userName = React.createRef();
         this.password = React.createRef();
-        this.password2 = React.createRef();
-
-    }
-
-    state =  {
-        errors: {}
     }
 
     checkInputs = event => {
         event.preventDefault();
         let userName = this.userName.current.value
         let password = this.password.current.value
-        let password2 = this.password2.current.value
         console.log(userName)
         console.log(password)
-        this.register(userName, password, password2);
+        this.register(userName, password);
     }
 
-    async register(userName, password, password2) {
+    async register(userName, password) {
         let data = {
             userName,
             password,
-            password2
         }
 
-        let result = await fetch('/api/register', {
+        let result = await fetch('/api/login', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
@@ -43,7 +35,7 @@ export default class Register extends Component {
     render() {
         return (
             <div className="justify-center tc">
-                <h1 className='f1'>Register</h1>
+                <h1 className='f1'>Login</h1>
                 <Form noValidate onSubmit={this.checkInputs} className="flex row col-12 col-sm-8 offset-sm-2">
                     <div className="column col-12">
                         <Form.Group controlId="validationFirstname">
@@ -54,14 +46,10 @@ export default class Register extends Component {
                             <Form.Label>Password</Form.Label>
                             <Form.Control required type="password" placeholder="password" ref={this.password} />
                         </Form.Group>
-                        <Form.Group controlId="validationPassword2">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control required type="password" placeholder="Torsson" ref={this.password2} />
-                        </Form.Group>
                     </div>
                     <div className="column col-12 flex justify-center">
                         <Button className="mt-4 mb-5" type="submit" variant="primary">
-                            Submit
+                            Login
                 </Button>
                     </div>
                 </Form>

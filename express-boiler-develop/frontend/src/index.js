@@ -10,6 +10,7 @@ import Navigation from './components/Navigationbar';
 import NavigationMobile from './components/NavigationbarMobile'
 import FriendDetails from './containers/FriendDetails';
 import Register from './containers/Register';
+import Login from './containers/Login';
 import { StoreProvider } from './utilities/Store';
 
 
@@ -24,6 +25,7 @@ const routing = (
                 <Route path="/add-friend" component={AddFriends} />
                 <Route path="/friends/:id" component={FriendDetails}></Route>
                 <Route path="/register" component={Register}></Route>
+                <Route path="/login" component={Login}></Route>
             </div>
         </Router>
     </StoreProvider>
