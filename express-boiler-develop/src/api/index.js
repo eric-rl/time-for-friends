@@ -7,7 +7,8 @@ innit.eraseData();
 
 const dbModels = {
     person: require('../models/Person'),
-    timezones: require('../models/Timezone')
+    timezones: require('../models/Timezone'),
+    user: require('../models/User')
 }
 
 router.get('/api/:entity', async (req, res) => {
