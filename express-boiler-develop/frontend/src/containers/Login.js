@@ -22,24 +22,24 @@ export default class Register extends Component {
     }
 
     async register(userName, password) {
-        this.setState({userNameError: false, passwordError: false})
+        this.setState({ userNameError: false, passwordError: false })
         let data = {
             userName,
             password,
         }
 
-        let login = await fetch('/api/login', {
+        let result = await fetch('/api/login', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
         });
-
-        let result = await login.json()
         console.log(result)
-        if(result.userNamenotfound === "Username not found"){
-            this.setState({userNameError: true})
-        } else if(result.passwordincorrect === "Password incorrect"){
-            this.setState({passwordError: true})
+        
+
+        if (result.userNamenotfound === "Username not found") {
+            this.setState({ userNameError: true })
+        } else if (result.passwordincorrect === "Password incorrect") {
+            this.setState({ passwordError: true })
         }
     }
 

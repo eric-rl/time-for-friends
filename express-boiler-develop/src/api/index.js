@@ -1,9 +1,16 @@
 const express = require('express');
-const router = express.Router();
+const router = express();
 const innit = require('./innit.js');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
+const session = require('express-session');
+
+router.use(session({
+    secret: 'our dirty little secret',
+    resave: false,
+    saveUninitialized: true
+  }));
 
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
@@ -48,6 +55,9 @@ router.post("/api/register", (req, res) => {
     });
 });
 
+router.get('/api/loggedinas', (req, res) => {
+    res.json(req.session.user);
+});
 
 router.post("/api/login", (req, res) => {
     // Form validation
@@ -74,8 +84,13 @@ router.post("/api/login", (req, res) => {
                     id: user._id,
                     name: user.userName
                 };
+
+                req.session.user = user;
+                console.log(user);
+
+                res.json({ok: true});
                 // Sign token
-                jwt.sign(
+                /*jwt.sign(
                     payload,
                     keys.secretOrKey,
                     {
@@ -89,7 +104,7 @@ router.post("/api/login", (req, res) => {
                             userName: user.userName
                         });
                     }
-                );
+                );*/
             } else {
                 return res
                     .status(400)
