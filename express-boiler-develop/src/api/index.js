@@ -48,6 +48,7 @@ router.post("/api/register", (req, res) => {
 });
 
 router.get('/api/loggedinas', (req, res) => {
+    // console.log(req.session)
     res.json(req.session.user);
 });
 
@@ -69,18 +70,12 @@ router.post("/api/login", (req, res) => {
         // Check password
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
-
-                console.log(user)
                 const sessUser = {
                     id: user._id,
                     name: user.userName
                 };
-
                 req.session.user = sessUser;
-                console.log(user);
-
-                res.json({msg: "logged in succesfully", sessUser, ok: true});
-                
+                res.json({ msg: "logged in succesfully", sessUser, ok: true });
             } else {
                 return res
                     .status(400)
@@ -90,14 +85,30 @@ router.post("/api/login", (req, res) => {
     });
 });
 
-router.delete('/api/user/logout', (req, res) => {
-    console.log(req.session);
-    req.session.destroy((err) => {
-        if (err) throw err;
-        res.clearCookie()
-        res.send("Logged out successfully")
-    })
-})
+router.get('/api/user/logout', function (req, res, next) {
+    if (req.session) {
+        // delete session object
+        req.session.destroy(function (err) {
+            if (err) {
+                res.json({success: false})
+                return next(err);
+            } else {
+                res.clearCookie('user_sid')
+                res.json({success: true})
+                return res.redirect('/');
+                
+            }
+        });
+    } else {res.json({success: false})}
+});
+
+// router.delete('/api/user/logout/blabla', (req, res) => {
+//     req.session.destroy((err) => {
+//         if (err) throw err;
+// res.clearCookie('user_sid')
+//         res.send("Logged out successfully")
+//     })
+// })
 
 router.get('/api/:entity', async (req, res) => {
     let result = await dbModels[req.params.entity].find();

@@ -15,9 +15,9 @@ const mongoDBstore = new MongoDBStore({
 
 app.use(
     session({
-        name: "kakan",
+        key: 'user_sid',
         secret: 'our dirty little secret',
-        resave: false,
+        resave: true,
         saveUninitialized: true,
         store: mongoDBstore,
         cookie: {

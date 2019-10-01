@@ -10,14 +10,29 @@ export default function App() {
   const fetchDataAction = async () => {
     const data = await fetch("/api/person");
     const dataJSON = await data.json();
-    return dispatch({
+    dispatch({
       type: 'FETCH_DATA',
       payload: dataJSON
     });
   };
 
+  const fetchCurrentUser = async () => {
+    const data = await fetch("/api/loggedinas");
+    let currentUser = null
+      try {currentUser = await data.json();
+      console.log(currentUser)
+      } catch (err){
+
+      }
+      dispatch({
+        type: 'FETCH_CURRENT_USER',
+        payload: currentUser
+      })
+  };
+
   React.useEffect(() => {
     state.friends.length === 0 && fetchDataAction();
+    // state.currentUser === null && fetchCurrentUser();
   });
 
 

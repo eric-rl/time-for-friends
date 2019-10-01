@@ -36,12 +36,14 @@ export default class Register extends Component {
 
         let result = await login.json()
         console.log(result)
-        
 
         if (result.userNamenotfound === "Username not found") {
             this.setState({ userNameError: true })
         } else if (result.passwordincorrect === "Password incorrect") {
             this.setState({ passwordError: true })
+        } else {
+            await this.props.history.push('/')
+            
         }
     }
 
