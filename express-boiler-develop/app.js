@@ -5,6 +5,27 @@ const app = express();
 const { db } = require('./src/loaders');
 const { router } = require('./src/api');
 const passport = require("passport");
+const session = require('express-session')
+const MongoDBStore = require('connect-mongodb-session')(session)
+
+const mongoDBstore = new MongoDBStore({
+    uri: config.databaseURL,
+    collection: "mySessions"
+});
+
+app.use(
+    session({
+        name: "kakan",
+        secret: 'our dirty little secret',
+        resave: false,
+        saveUninitialized: true,
+        store: mongoDBstore,
+        cookie: {
+            maxAge: 1000 * 60 * 60,
+            sameSite: false
+        }
+    })
+)
 
 
 app.use(express.json());

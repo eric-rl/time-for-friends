@@ -1,27 +1,19 @@
 const express = require('express');
-const router = express();
-const innit = require('./innit.js');
+const router = express.Router();
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const keys = require("../config/keys");
-const session = require('express-session');
+const innit = require('./innit.js');
 
-router.use(session({
-    secret: 'our dirty little secret',
-    resave: false,
-    saveUninitialized: true
-  }));
-
+const User = require("../models/User")
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 
 innit.eraseData();
 
-const User = require("../models/User")
 
 const dbModels = {
     person: require('../models/Person'),
-    timezones: require('../models/Timezone')
+    timezones: require('../models/Timezone'),
+    user: require('../models/User')
 }
 
 router.post("/api/register", (req, res) => {
@@ -77,34 +69,18 @@ router.post("/api/login", (req, res) => {
         // Check password
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
-                // User matched
-                // Create JWT Payload
+
                 console.log(user)
-                const payload = {
+                const sessUser = {
                     id: user._id,
                     name: user.userName
                 };
 
-                req.session.user = user;
+                req.session.user = sessUser;
                 console.log(user);
 
-                res.json({ok: true});
-                // Sign token
-                /*jwt.sign(
-                    payload,
-                    keys.secretOrKey,
-                    {
-                        expiresIn: 31556926 // 1 year in seconds
-                    },
-                    (err, token) => {
-                        res.json({
-                            success: true,
-                            token: "Bearer " + token,
-                            id: user._id,
-                            userName: user.userName
-                        });
-                    }
-                );*/
+                res.json({msg: "logged in succesfully", sessUser, ok: true});
+                
             } else {
                 return res
                     .status(400)
@@ -113,6 +89,15 @@ router.post("/api/login", (req, res) => {
         });
     });
 });
+
+router.delete('/api/user/logout', (req, res) => {
+    console.log(req.session);
+    req.session.destroy((err) => {
+        if (err) throw err;
+        res.clearCookie()
+        res.send("Logged out successfully")
+    })
+})
 
 router.get('/api/:entity', async (req, res) => {
     let result = await dbModels[req.params.entity].find();
@@ -128,6 +113,7 @@ router.get('/api/:entity/:id', async (req, res) => {
     let result = await dbModels[req.params.entity].findOne({ _id: req.params.id });
     res.json(result);
 })
+
 
 
 // router.post('/api/:entity', async (req, res) => {
