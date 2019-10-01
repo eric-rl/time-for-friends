@@ -17,6 +17,7 @@ export default function Friends(props) {
     const [sortValue, setSortValue] = useState(1)
     const [sortedAndFilteredData, setSortedAndFilteredData] = useState([])
 
+    // eslint-disable-next-line
     useEffect(() => {
         state.friends.length === 0 && fetchDataAction();
         setSortedAndFilteredData(state.friends.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)))

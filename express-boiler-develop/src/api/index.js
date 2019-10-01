@@ -69,8 +69,9 @@ router.post("/api/login", (req, res) => {
             if (isMatch) {
                 // User matched
                 // Create JWT Payload
+                console.log(user)
                 const payload = {
-                    id: user.id,
+                    id: user._id,
                     name: user.userName
                 };
                 // Sign token
@@ -83,7 +84,9 @@ router.post("/api/login", (req, res) => {
                     (err, token) => {
                         res.json({
                             success: true,
-                            token: "Bearer " + token
+                            token: "Bearer " + token,
+                            id: user._id,
+                            userName: user.userName
                         });
                     }
                 );
