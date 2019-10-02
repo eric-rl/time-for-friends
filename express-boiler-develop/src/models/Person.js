@@ -20,7 +20,8 @@ let personSchema = new Schema({
         city: String,
         lng: Number,
         lat: Number
-    }
+    },
+    createdBy: String
 });
 
 

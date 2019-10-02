@@ -62,6 +62,11 @@ export default function Register(props) {
         } else if (result.passwordincorrect === "Username or password was incorrect") {
             setPasswordError(true)
         } else {
+            dispatch({
+                type: 'SET_LOGGEDIN',
+                payload: true
+            })
+
             await fetchCurrentUser()
             await props.history.push('/')
 

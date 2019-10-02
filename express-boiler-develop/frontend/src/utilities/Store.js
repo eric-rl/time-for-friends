@@ -5,13 +5,8 @@ const isEmpty = require("is-empty");
 
 const initialState = {
   friends: [],
-  currentUser: null
-}
-
-const loginState = {
-  user: {},
-  loading: false,
-  isAuthenticated: false,
+  currentUser: null,
+  isLoggedIn: false
 }
 
 function reducer(state, action) {
@@ -21,7 +16,9 @@ function reducer(state, action) {
     case 'FETCH_CURRENT_USER':
       return { ...state, currentUser: action.payload }
     case 'LOGOUT_USER':
-      return { ...state, currentUser: null }
+      return { ...state, currentUser: null, isLoggedIn: false, friends: []}
+    case 'SET_LOGGEDIN':
+      return { ...state, isLoggedIn: true}  
     default:
       return state;
   }

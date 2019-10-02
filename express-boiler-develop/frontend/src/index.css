@@ -71,6 +71,7 @@ h2{
   font-weight: 200;
   font-size: 1.4rem;
   color: #0ccac4 !important;
+  cursor: pointer;
 }
 
 .digital-font{

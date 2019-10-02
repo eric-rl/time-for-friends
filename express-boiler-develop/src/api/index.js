@@ -85,60 +85,35 @@ router.post("/api/login", (req, res) => {
     });
 });
 
-// router.get('/api/user/logout', function (req, res, next) {
-//     if (req.session) {
-//         // delete session object
-//         req.session.destroy(function (err) {
-//             if (err) {
-//                 res.json({success: false})
-//                 return next(err);
-//             } else {
-//                 res.clearCookie('user_sid')
-//                 res.json({success: true})
-//                 return res.redirect('/');
-
-//             }
-//         });
-//     } else {res.json({success: false})}
-// });
-
-// Route for logout
-router.delete('/api/user/logout', (req, res) => {
-
-    //   if(req.session.sessUser){
-    //     delete req.session.user;
-    //     res.json({success: true});
-    //   }
-    //   else {
-    //     res.json({error: false});
-    //   }
+router.get('/api/user/logout', function (req, res, next) {
+    if (req.session) {
+        // delete session object
+        req.session.destroy(function (err) {
+            if (err) {
+                res.json({success: false})
+                return next(err);
+            } else {
+                res.clearCookie('user_sid')
+                res.json({success: true})
+            }
+        });
+    } else {res.json({success: false})}
 });
 
+router.get('/api/person/:id', async (req, res) => {
+    let result = await dbModels["person"].findOne({ _id: req.params.id });
+    res.json(result);
+})
 
-// router.delete('/api/user/logout/blabla', (req, res) => {
-//     req.session.destroy((err) => {
-//         if (err) throw err;
-// res.clearCookie('user_sid')
-//         res.send("Logged out successfully")
-//     })
-// })
-
-router.get('/api/:entity', async (req, res) => {
-    let result = await dbModels[req.params.entity].find();
+router.get('/api/created-by/:id', async (req, res) => {
+    let result = await dbModels.person.find({ createdBy: req.params.id});
     res.json(result);
 });
 
 router.get('/api/timezones/:name', async (req, res) => {
-    let result = await dbModels["timezones"].findOne({ name: req.params.name })
+    let result = await dbModels.timezones.findOne({ name: req.params.name })
     res.json(result);
 })
-
-router.get('/api/:entity/:id', async (req, res) => {
-    let result = await dbModels[req.params.entity].findOne({ _id: req.params.id });
-    res.json(result);
-})
-
-
 
 // router.post('/api/:entity', async (req, res) => {
 //     console.log(req.body)

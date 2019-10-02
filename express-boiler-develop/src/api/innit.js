@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { db } = require('../loaders');
-const data = require('../config/data.json')
+const data = require('../config/data2.json')
 const Person = require('../models/Person');
 const Timezone = require('../models/Timezone')
 const timezonedata = require('../config/timezones.json')

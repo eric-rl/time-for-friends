@@ -33,7 +33,7 @@ export default function Friends(props) {
     }
 
     const fetchDataAction = async () => {
-        const data = await fetch("/api/person");
+        const data = await fetch("/api/person/"+state.currentUser.id);
         const dataJSON = await data.json();
         return dispatch({
             type: 'FETCH_DATA',

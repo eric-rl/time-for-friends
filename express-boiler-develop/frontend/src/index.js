@@ -12,6 +12,8 @@ import FriendDetails from './containers/FriendDetails';
 import Register from './containers/Register';
 import Login from './containers/Login';
 import { StoreProvider } from './utilities/Store';
+import PrivateRoutes from './utilities/PrivateRoutes';
+
 
 
 const routing = (
@@ -20,10 +22,11 @@ const routing = (
             <div>
                 <Navigation />
                 <NavigationMobile />
-                <Route exact path="/" component={App} />
-                <Route exact path="/friends" component={Friends} />
-                <Route path="/add-friend" component={AddFriends} />
-                <Route path="/friends/:id" component={FriendDetails}></Route>
+                <PrivateRoutes exact path="/" component={App} redirectPath="/login" />
+
+                <PrivateRoutes exact path="/friends" component={Friends} redirectPath="/login" />
+                <PrivateRoutes path="/add-friend" component={AddFriends} redirectPath="/login" />
+                <PrivateRoutes path="/friends/:id" component={FriendDetails} redirectPath="/login"/>
                 <Route path="/register" component={Register}></Route>
                 <Route path="/login" component={Login}></Route>
             </div>
