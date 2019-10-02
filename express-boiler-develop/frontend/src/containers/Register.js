@@ -50,15 +50,15 @@ export default class Register extends Component {
                     <div className="column col-12">
                         <Form.Group controlId="validationFirstname">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control required type="text" placeholder="Åke" ref={this.userName} />
+                            <Form.Control required type="text" ref={this.userName} />
                         </Form.Group>
                         <Form.Group controlId="validationPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control required type="password" placeholder="password" ref={this.password} />
+                            <Form.Control required type="password"  ref={this.password} />
                         </Form.Group>
                         <Form.Group controlId="validationPassword2">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control required type="password" placeholder="Torsson" ref={this.password2} />
+                            <Form.Label>Enter the same password</Form.Label>
+                            <Form.Control required type="password"  ref={this.password2} />
                         </Form.Group>
                     </div>
                     <div className="column col-12 flex justify-center">

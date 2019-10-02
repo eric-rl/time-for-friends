@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, InputGroup, FormControl } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Form, Button } from 'react-bootstrap'
 import { Store } from '../utilities/Store'
+import { Link } from 'react-router-dom'
 
 export default function Register(props) {
 
 
-    const { state, dispatch } = React.useContext(Store);
+    const { dispatch } = React.useContext(Store);
     const [userNameError, setUserNameError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [password, setPassword] = useState('')
@@ -96,6 +97,17 @@ export default function Register(props) {
                 </Button>
                 </div>
             </Form>
+            <h1 className="f1">Not A memeber?</h1>
+            <div className="column col-12 flex justify-center">
+            <Link to={{
+                            pathname: "/register",
+                            
+                    }}>
+                    <Button className="mt-4 mb-5" variant="primary">
+                        Register
+                </Button>
+                </Link>
+                </div>
         </div>
     )
 }
