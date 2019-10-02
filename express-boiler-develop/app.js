@@ -15,7 +15,7 @@ app.use(
     session({
         key: 'user_sid',
         secret: 'our dirty little secret',
-        resave: true,
+        resave: false,
         saveUninitialized: true,
         store: mongoDBstore,
         cookie: {
