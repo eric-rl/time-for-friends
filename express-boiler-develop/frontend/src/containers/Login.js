@@ -5,21 +5,17 @@ import { Link } from 'react-router-dom'
 
 export default function Register(props) {
 
-
     const { dispatch } = React.useContext(Store);
     const [userNameError, setUserNameError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [password, setPassword] = useState('')
     const [userName, setUsername] = useState('')
-
     const handleChangeUsername = event => {
         setUsername(event.target.value)
-        console.log('userName : ', userName);
     }
 
     const handleChangePassword = event => {
         setPassword(event.target.value)
-        console.log('passWord : ' ,password);
     }
     const checkInputs = event => {
         event.preventDefault();
@@ -31,7 +27,6 @@ export default function Register(props) {
         let currentUser = null
         try {
             currentUser = await data.json();
-            console.log(currentUser)
         } catch (err) {
 
         }
@@ -56,7 +51,6 @@ export default function Register(props) {
         });
 
         let result = await login.json()
-        console.log(result)
 
         if (result.userNamenotfound === "Username or password was incorrect") {
             setUserNameError(true)
@@ -73,7 +67,6 @@ export default function Register(props) {
 
         }
     }
-
 
     return (
         <div className="justify-center tc">

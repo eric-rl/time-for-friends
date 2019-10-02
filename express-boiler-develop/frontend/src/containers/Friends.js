@@ -23,11 +23,7 @@ export default function Friends(props) {
         if (!haveLookedForData) {
             fetchDataAction();
         }
-        console.log(state.friends)
         setSortedAndFilteredData(state.friends.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)));
-
-
-
     });
 
     const fetchDataAction = async () => {

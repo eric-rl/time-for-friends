@@ -57,14 +57,12 @@ export default class AddFriend extends Component {
     async getTimezones(country) {
         let data = await (await fetch("/api/timezones/" + country)).json()
         this.setState({ selectedTimezone: data })
-        console.log(this.state.selectedTimezone.timezones)
     }
 
     async dataCheck() {
         if (this.country.current.value !== "Select a country") {
 
             let longLat = await (await fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.city.current.value + '+' + this.country.current.value + '&key=AIzaSyB4pPsphC1Am-jN9AYwCaUZ3gYsDnSSOtE')).json();
-            console.log(longLat.results[0].geometry.location)
             let loggedInId = await fetch('/api/loggedinas')
 
             loggedInId = await loggedInId.json()
@@ -125,13 +123,11 @@ export default class AddFriend extends Component {
         const form = event.currentTarget;
 
         if (!form.checkValidity() || !this.checkWorkSleep()) {
-            console.log("Fastnade")
             event.preventDefault();
             event.stopPropagation();
             this.setState({ validated: true });
             this.setState({sleepWorkError: true});
         } else if(this.checkWorkSleep()) {
-            console.log('det gick bra')
             event.preventDefault();
             this.dataCheck();
         }

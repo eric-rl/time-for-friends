@@ -24,11 +24,11 @@ export default function Navigationbar(props) {
                     state.currentUser ? <div className="nav-link" onClick={logout}>Logout</div> : <NavLink className="nav-link" to="/login">Login</NavLink>
                 }
 
-                {
-                    state.currentUser && state.currentUser.name ? <p>{state.currentUser.name}</p> : ''
-                }
 
             </div>
+                {
+                    state.currentUser && state.currentUser.name ? <h1>{state.currentUser.name}</h1> : ''
+                }
             <hr className="col-10 offset-1" />
         </div>
     )

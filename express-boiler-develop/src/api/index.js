@@ -2,13 +2,12 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const innit = require('./innit.js');
-
 const User = require("../models/User")
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 
+//Erases and then create user, friends etc. 
 innit.eraseData();
-
 
 const dbModels = {
     person: require('../models/Person'),
@@ -18,7 +17,6 @@ const dbModels = {
 
 router.post("/api/register", (req, res) => {
     // Form validation
-    console.log(req.body)
     const { errors, isValid } = validateRegisterInput(req.body);
     // Check validation
     if (!isValid) {
@@ -39,8 +37,8 @@ router.post("/api/register", (req, res) => {
                     newUser.password = hash;
                     newUser
                         .save()
-                        .then(user => res.json(user))
-                        .catch(err => console.log(err));
+                        .then(res.status(200).json({ status: 200}))
+                        .catch(err);
                 });
             });
         }
@@ -48,7 +46,6 @@ router.post("/api/register", (req, res) => {
 });
 
 router.get('/api/loggedinas', (req, res) => {
-    // console.log(req.session)
     res.json(req.session.user);
 });
 
@@ -116,8 +113,6 @@ router.get('/api/timezones/:name', async (req, res) => {
 })
 
 router.post('/api/:entity', async (req, res) => {
-    console.log(req.body)
-
     let newInstance = await new dbModels[req.params.entity](req.body);
     newInstance.save()
     res.json(newInstance)

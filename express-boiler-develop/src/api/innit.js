@@ -13,7 +13,6 @@ async function eraseData() {
     await createNewAdmin()
     setTimeout(async function () {
         let admin = await db.collection('users').findOne().catch((err) => console.log("cought it"));
-        console.log(admin._id);
         data.forEach(async friend => {
             let person = new Person({...friend, createdBy: admin._id})
             await person.save() 

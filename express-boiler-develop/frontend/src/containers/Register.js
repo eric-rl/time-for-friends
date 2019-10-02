@@ -20,8 +20,6 @@ export default class Register extends Component {
         let userName = this.userName.current.value
         let password = this.password.current.value
         let password2 = this.password2.current.value
-        console.log(userName)
-        console.log(password)
         this.register(userName, password, password2);
     }
 
@@ -39,7 +37,9 @@ export default class Register extends Component {
         });
 
         let result = await registerUser.json()
-        console.log(result);
+        if(result.status=== 200){
+            this.props.history.push("/login")
+        }
     }
 
     render() {
