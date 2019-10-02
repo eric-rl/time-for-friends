@@ -1,28 +1,48 @@
-import React, { Component } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import { Form, Button, InputGroup, FormControl } from 'react-bootstrap'
+import { Store } from '../utilities/Store'
 
-export default class Register extends Component {
+export default function Register(props) {
 
-    constructor(props) {
-        super(props)
-        this.userName = React.createRef();
-        this.password = React.createRef();
+
+    const { state, dispatch } = React.useContext(Store);
+    const [userNameError, setUserNameError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
+    const [password, setPassword] = useState('')
+    const [userName, setUsername] = useState('')
+
+    const handleChangeUsername = event => {
+        setUsername(event.target.value)
+        console.log('userName : ', userName);
     }
 
-    state = {
-        userNameError: false,
-        passwordError: false
+    const handleChangePassword = event => {
+        setPassword(event.target.value)
+        console.log('passWord : ' ,password);
     }
-
-    checkInputs = event => {
+    const checkInputs = event => {
         event.preventDefault();
-        let userName = this.userName.current.value
-        let password = this.password.current.value
-        this.register(userName, password);
+        login(userName, password);
     }
 
-    async register(userName, password) {
-        this.setState({ userNameError: false, passwordError: false })
+    const fetchCurrentUser = async () => {
+        const data = await fetch("/api/loggedinas");
+        let currentUser = null
+        try {
+            currentUser = await data.json();
+            console.log(currentUser)
+        } catch (err) {
+
+        }
+        dispatch({
+            type: 'FETCH_CURRENT_USER',
+            payload: currentUser
+        })
+    };
+
+    const login = async (userName, password) => {
+        setUserNameError(false)
+        setPasswordError(false)
         let data = {
             userName,
             password,
@@ -37,40 +57,41 @@ export default class Register extends Component {
         let result = await login.json()
         console.log(result)
 
-        if (result.userNamenotfound === "Username not found") {
-            this.setState({ userNameError: true })
-        } else if (result.passwordincorrect === "Password incorrect") {
-            this.setState({ passwordError: true })
+        if (result.userNamenotfound === "Username or password was incorrect") {
+            setUserNameError(true)
+        } else if (result.passwordincorrect === "Username or password was incorrect") {
+            setPasswordError(true)
         } else {
-            await this.props.history.push('/')
-            
+            await fetchCurrentUser()
+            await props.history.push('/')
+
         }
     }
 
-    render() {
-        return (
-            <div className="justify-center tc">
-                <h1 className='f1'>Login</h1>
-                <Form noValidate onSubmit={this.checkInputs} className="flex row col-12 col-sm-8 offset-sm-2">
-                    <div className="column col-12">
-                        <Form.Group controlId="validationFirstname">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control required type="text" placeholder="Åke" ref={this.userName} />
-                        </Form.Group>
-                        {this.state.userNameError ? <p className="warningSleep">Username doesn't exist</p> : ''}
-                        <Form.Group controlId="validationPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control required type="password" placeholder="password" ref={this.password} />
-                        </Form.Group>
-                        {this.state.passwordError ? <p className="warningSleep">Username or password is incorrect</p> : ''}
-                    </div>
-                    <div className="column col-12 flex justify-center">
-                        <Button className="mt-4 mb-5" type="submit" variant="primary">
-                            Login
+
+    return (
+        <div className="justify-center tc">
+            <h1 className='f1'>Login</h1>
+            <Form noValidate onSubmit={checkInputs} className="flex row col-12 col-sm-8 offset-sm-2">
+                <div className="column col-12">
+                    <Form.Group controlId="validationFirstname">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control required type="text" placeholder="Åke"  onChange={handleChangeUsername} />
+                    </Form.Group>
+                    {userNameError ? <p className="warningSleep">Username or password is incorrect</p> : ''}
+                    <Form.Group controlId="validationPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control required type="password" placeholder="password" onChange={handleChangePassword} />
+                    </Form.Group>
+                    {passwordError ? <p className="warningSleep">Username or password is incorrect</p> : ''}
+                </div>
+                <div className="column col-12 flex justify-center">
+                    <Button className="mt-4 mb-5" type="submit" variant="primary">
+                        Login
                 </Button>
-                    </div>
-                </Form>
-            </div>
-        )
-    }
+                </div>
+            </Form>
+        </div>
+    )
 }
+

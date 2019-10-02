@@ -65,7 +65,7 @@ router.post("/api/login", (req, res) => {
     User.findOne({ userName }).then(user => {
         // Check if user exists
         if (!user) {
-            return res.status(404).json({ userNamenotfound: "Username not found" });
+            return res.status(404).json({ userNamenotfound: "Username or password was incorrect" });
         }
         // Check password
         bcrypt.compare(password, user.password).then(isMatch => {
@@ -79,28 +79,41 @@ router.post("/api/login", (req, res) => {
             } else {
                 return res
                     .status(400)
-                    .json({ passwordincorrect: "Password incorrect" });
+                    .json({ passwordincorrect: "Username or password was incorrect" });
             }
         });
     });
 });
 
-router.get('/api/user/logout', function (req, res, next) {
-    if (req.session) {
-        // delete session object
-        req.session.destroy(function (err) {
-            if (err) {
-                res.json({success: false})
-                return next(err);
-            } else {
-                res.clearCookie('user_sid')
-                res.json({success: true})
-                return res.redirect('/');
-                
-            }
-        });
-    } else {res.json({success: false})}
+// router.get('/api/user/logout', function (req, res, next) {
+//     if (req.session) {
+//         // delete session object
+//         req.session.destroy(function (err) {
+//             if (err) {
+//                 res.json({success: false})
+//                 return next(err);
+//             } else {
+//                 res.clearCookie('user_sid')
+//                 res.json({success: true})
+//                 return res.redirect('/');
+
+//             }
+//         });
+//     } else {res.json({success: false})}
+// });
+
+// Route for logout
+router.delete('/api/user/logout', (req, res) => {
+
+    //   if(req.session.sessUser){
+    //     delete req.session.user;
+    //     res.json({success: true});
+    //   }
+    //   else {
+    //     res.json({error: false});
+    //   }
 });
+
 
 // router.delete('/api/user/logout/blabla', (req, res) => {
 //     req.session.destroy((err) => {

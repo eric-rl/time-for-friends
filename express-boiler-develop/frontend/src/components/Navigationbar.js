@@ -4,8 +4,6 @@ import { Store } from '../utilities/Store'
 
 export default function Navigationbar(props) {
     const { state, dispatch } = React.useContext(Store);
-    console.log(state.currentUser)
-
 
     const logout = async () => {
         let result = await fetch('/api/user/logout');

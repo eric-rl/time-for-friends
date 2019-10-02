@@ -16,23 +16,11 @@ export default function App() {
     });
   };
 
-  const fetchCurrentUser = async () => {
-    const data = await fetch("/api/loggedinas");
-    let currentUser = null
-      try {currentUser = await data.json();
-      console.log(currentUser)
-      } catch (err){
 
-      }
-      dispatch({
-        type: 'FETCH_CURRENT_USER',
-        payload: currentUser
-      })
-  };
 
   React.useEffect(() => {
     state.friends.length === 0 && fetchDataAction();
-    // state.currentUser === null && fetchCurrentUser();
+    console.log(state.currentUser);
   });
 
 

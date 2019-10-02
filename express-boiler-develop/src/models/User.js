@@ -16,4 +16,4 @@ class UserClass {
 
 userSchema.loadClass(UserClass)
 
-module.exports = db.model('User', userSchema)
+module.exports = db.model('User', userSchema) 
