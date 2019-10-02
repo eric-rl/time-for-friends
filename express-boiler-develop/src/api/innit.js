@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const { db } = require('../loaders');
 const data = require('../config/data.json')
 const Person = require('../models/Person');
