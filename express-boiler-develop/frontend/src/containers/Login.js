@@ -1,17 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { Store } from '../utilities/Store'
 import { Link } from 'react-router-dom'
 
 export default function Register(props) {
 
-    const { dispatch } = React.useContext(Store);
+    const { state, dispatch } = React.useContext(Store);
     const [userNameError, setUserNameError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [password, setPassword] = useState('')
     const [userName, setUsername] = useState('')
     const handleChangeUsername = event => {
         setUsername(event.target.value)
+    }
+
+    useEffect(() => {
+        checkLoginStatus()
+    });
+
+    const checkLoginStatus = async () => {
+        let data = await fetch("/api/loggedinas");
+        try {
+            data = await data.json();
+        } catch {
+        }
+        if (data.loggedIn && state.isLoggedIn === false) {
+            dispatch({
+                type: 'SET_LOGGEDIN',
+            })
+            dispatch({
+                type: 'FETCH_CURRENT_USER',
+                payload: data
+            })
+        } else if (!data.loggedIn && state.isLoggedIn === true) {
+            dispatch({
+                type: 'LOGOUT_USER'
+            })
+        }
+        console.log("logged in?", data)
+
     }
 
     const handleChangePassword = event => {
@@ -75,7 +102,7 @@ export default function Register(props) {
                 <div className="column col-12">
                     <Form.Group controlId="validationFirstname">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control required type="text" placeholder="Åke"  onChange={handleChangeUsername} />
+                        <Form.Control required type="text" placeholder="Åke" onChange={handleChangeUsername} />
                     </Form.Group>
                     {userNameError ? <p className="warningSleep">Username or password is incorrect</p> : ''}
                     <Form.Group controlId="validationPassword">
@@ -92,15 +119,15 @@ export default function Register(props) {
             </Form>
             <h1 className="f1">Not A memeber?</h1>
             <div className="column col-12 flex justify-center">
-            <Link to={{
-                            pathname: "/register",
-                            
-                    }}>
+                <Link to={{
+                    pathname: "/register",
+
+                }}>
                     <Button className="mt-4 mb-5" variant="primary">
                         Register
                 </Button>
                 </Link>
-                </div>
+            </div>
         </div>
     )
 }

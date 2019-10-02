@@ -7,7 +7,7 @@ const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 
 //Erases and then create user, friends etc. 
-innit.eraseData();
+// innit.eraseData();
 
 const dbModels = {
     person: require('../models/Person'),
@@ -69,7 +69,8 @@ router.post("/api/login", (req, res) => {
             if (isMatch) {
                 const sessUser = {
                     id: user._id,
-                    name: user.userName
+                    name: user.userName,
+                    loggedIn: true
                 };
                 req.session.user = sessUser;
                 res.json({ msg: "logged in succesfully", sessUser, ok: true });

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Store } from '../utilities/Store'
 
@@ -13,7 +13,6 @@ export default function Navigationbar(props) {
         }
     }
 
-
     return (
         <div className="d-none d-sm-block">
             <div className="flex justify-center">
@@ -21,14 +20,14 @@ export default function Navigationbar(props) {
                 <NavLink className="nav-link" to="/friends">Friends</NavLink>
                 <NavLink className="nav-link" to="/add-friend">Add friend</NavLink>
                 {
-                    state.currentUser ? <div className="nav-link" onClick={logout}>Logout</div> : <NavLink className="nav-link" to="/login">Login</NavLink>
+                    state.isLoggedIn ? <div className="nav-link" onClick={logout}>Logout</div> : <NavLink className="nav-link" to="/login">Login</NavLink>
                 }
 
 
             </div>
-                {
-                    state.currentUser && state.currentUser.name ? <h1>{state.currentUser.name}</h1> : ''
-                }
+            {
+                state.currentUser && state.currentUser.name ? <h1>{state.currentUser.name}</h1> : ''
+            }
             <hr className="col-10 offset-1" />
         </div>
     )
