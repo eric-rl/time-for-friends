@@ -115,12 +115,12 @@ router.get('/api/timezones/:name', async (req, res) => {
     res.json(result);
 })
 
-// router.post('/api/:entity', async (req, res) => {
-//     console.log(req.body)
+router.post('/api/:entity', async (req, res) => {
+    console.log(req.body)
 
-//     let newInstance = await new dbModels[req.params.entity](req.body);
-//     newInstance.save()
-//     res.json(newInstance)
-// });
+    let newInstance = await new dbModels[req.params.entity](req.body);
+    newInstance.save()
+    res.json(newInstance)
+});
 
 module.exports = { router };

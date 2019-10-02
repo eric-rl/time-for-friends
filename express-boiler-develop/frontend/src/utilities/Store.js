@@ -6,7 +6,7 @@ const isEmpty = require("is-empty");
 const initialState = {
   friends: [],
   currentUser: null,
-  isLoggedIn: false
+  isLoggedIn: false,
 }
 
 function reducer(state, action) {

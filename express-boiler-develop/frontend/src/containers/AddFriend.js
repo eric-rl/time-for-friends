@@ -65,6 +65,10 @@ export default class AddFriend extends Component {
 
             let longLat = await (await fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.city.current.value + '+' + this.country.current.value + '&key=AIzaSyB4pPsphC1Am-jN9AYwCaUZ3gYsDnSSOtE')).json();
             console.log(longLat.results[0].geometry.location)
+            let loggedInId = await fetch('/api/loggedinas')
+
+            loggedInId = await loggedInId.json()
+
             let data = {
                 name: {
                     firstName: this.firstName.current.value,
@@ -83,13 +87,16 @@ export default class AddFriend extends Component {
                 workEnd: this.workEnd.current.value,
                 sleepStart: this.sleepStart.current.value,
                 sleepEnd: this.sleepEnd.current.value,
+                createdBy: loggedInId.id
             }
+
 
             let result = await fetch('/api/person', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: { 'Content-Type': 'application/json' }
             });
+
 
             let id = await result.json()
             await this.props.history.push('/friends/' + id._id)

@@ -16,12 +16,27 @@ export default function Friends(props) {
     const [rangeValue, setRangeValue] = useState({ min: 0, max: 23 })
     const [sortValue, setSortValue] = useState(1)
     const [sortedAndFilteredData, setSortedAndFilteredData] = useState([])
+    const [haveLookedForData, sethaveLookedForData] = useState(false)
 
     // eslint-disable-next-line
     useEffect(() => {
-        state.friends.length === 0 && fetchDataAction();
-        setSortedAndFilteredData(state.friends.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)))
+        if(!haveLookedForData){
+            fetchDataAction();
+
+            setSortedAndFilteredData(state.friends.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)))
+        } 
+        
     });
+
+    const fetchDataAction = async () => {
+        const data = await fetch("/api/person/" + state.currentUser.id);
+        const dataJSON = await data.json();
+        sethaveLookedForData(true)
+        return dispatch({
+            type: 'FETCH_DATA',
+            payload: dataJSON
+        });
+    };
 
     function handleChange(e) {
         setSearch(e.target.value.toLowerCase())
@@ -32,14 +47,6 @@ export default function Friends(props) {
         sortFriends(e)
     }
 
-    const fetchDataAction = async () => {
-        const data = await fetch("/api/person/"+state.currentUser.id);
-        const dataJSON = await data.json();
-        return dispatch({
-            type: 'FETCH_DATA',
-            payload: dataJSON
-        });
-    };
 
     function sortFriends(e) {
         switch (e) {

@@ -6,7 +6,7 @@ const Timezone = require('../models/Timezone')
 const timezonedata = require('../config/timezones.json')
 
 async function eraseData() {
-    await db.collection('people').drop().catch((err) => console.log("cought it"));
+    // await db.collection('people').drop().catch((err) => console.log("cought it"));
 
     Person.create(data);
     Timezone.create(timezonedata);
