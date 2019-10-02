@@ -139,7 +139,7 @@ export default class AddFriend extends Component {
         return (
             <div className="justify-center tc">
                 <h1 className='f1'>Add friend</h1>
-                <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit} className="flex row col-12 col-sm-8 offset-sm-2">
+                <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit} className="flex row col-12 col-sm-8 offset-sm-2 m-0">
                     <div className="column col-12 col-md-6 col-12">
                         <Form.Group controlId="validationFirstname">
                             <Form.Label>First name</Form.Label>

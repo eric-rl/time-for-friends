@@ -19,7 +19,11 @@ export default function NavigationbarMobile(props) {
         <div className="d-block d-sm-none">
             <Navbar collapseOnSelect expand="lg" bg="transparent" variant="dark">
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Brand ></Navbar.Brand>
+                <Navbar.Brand >
+                    {
+                        state.currentUser && state.currentUser.name ? <h3>{state.currentUser.name}</h3> : ''
+                    }
+                </Navbar.Brand>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav>
                         <Nav.Link as={Link} eventKey="1" to="/">Home</Nav.Link>
@@ -27,10 +31,6 @@ export default function NavigationbarMobile(props) {
                         <Nav.Link as={Link} eventKey="3" to="/add-friend">Add friend</Nav.Link>
                         {
                             state.currentUser ? <div className="nav-link" onClick={logout}>Logout</div> : <NavLink className="nav-link" to="/login">Login</NavLink>
-                        }
-
-                        {
-                            state.currentUser && state.currentUser.name ? <h3>{state.currentUser.name}</h3> : ''
                         }
                     </Nav>
                 </Navbar.Collapse>
