@@ -18,7 +18,6 @@ const dbModels = {
 
 router.post("/api/register", (req, res) => {
     // Form validation
-    console.log(req.body)
     const { errors, isValid } = validateRegisterInput(req.body);
     // Check validation
     if (!isValid) {
