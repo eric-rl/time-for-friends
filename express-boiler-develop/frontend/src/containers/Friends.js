@@ -20,12 +20,14 @@ export default function Friends(props) {
 
     // eslint-disable-next-line
     useEffect(() => {
-        if(!haveLookedForData){
+        if (!haveLookedForData) {
             fetchDataAction();
+        }
+        console.log(state.friends)
+        setSortedAndFilteredData(state.friends.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)));
 
-            setSortedAndFilteredData(state.friends.sort((a, b) => a.name.firstName.localeCompare(b.name.firstName)))
-        } 
-        
+
+
     });
 
     const fetchDataAction = async () => {

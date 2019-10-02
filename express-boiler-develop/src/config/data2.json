@@ -1,4 +1,5 @@
-[{
+[
+  {
     "name": {
       "firstName": "Hildagard",
       "lastName": "Adolfsen"
@@ -15,8 +16,10 @@
     "workStart": "08:02",
     "workEnd": "17:24",
     "sleepStart": "22:16",
-    "sleepEnd": "06:59"
-  }, {
+    "sleepEnd": "06:59",
+    "createdBy": "5d94882d44299d5599bba2cc"
+  },
+  {
     "name": {
       "firstName": "Annadiana",
       "lastName": "Skuse"
@@ -33,5 +36,47 @@
     "workStart": "09:13",
     "workEnd": "16:46",
     "sleepStart": "23:13",
-    "sleepEnd": "06:20"
-  }]
+    "sleepEnd": "06:20",
+    "createdBy": "5d948856bfd57c55ae08edf6"
+  },
+  {
+    "name": {
+      "firstName": "Eric",
+      "lastName": "Rasmusson"
+    },
+    "email": "eric.rl@ocn.ne.jp",
+    "phoneNumber": "+62 893 582 6697",
+    "location": {
+      "city": "Malmo",
+      "country": "Sweden",
+      "timezone": "Europe/Stockholm",
+      "lng": 1,
+      "lat": 2
+    },
+    "workStart": "10:28",
+    "workEnd": "11:29",
+    "sleepStart": "12:30",
+    "sleepEnd": "15:31",
+    "createdBy": "5d9237884c9eaa5544b82a9e"
+  },
+  {
+    "name": {
+      "firstName": "Mahmud",
+      "lastName": "Fausset"
+    },
+    "email": "mfaussetx@phoca.cz",
+    "phoneNumber": "+33 176 732 3657",
+    "location": {
+      "city": "Le Mans",
+      "country": "France",
+      "timezone": "Europe/Paris",
+      "lng": 0.1924459,
+      "lat": 47.9956173
+    },
+    "workStart": "08:32",
+    "workEnd": "16:47",
+    "sleepStart": "22:49",
+    "sleepEnd": "06:41",
+    "createdBy": "5d9237884c9eaa5544b82a9e"
+  }
+]
