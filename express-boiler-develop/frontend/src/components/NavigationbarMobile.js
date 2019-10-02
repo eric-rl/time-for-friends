@@ -9,7 +9,7 @@ export default class NavigationbarMobile extends Component {
             <div className="d-block d-sm-none">
                 <Navbar collapseOnSelect expand="lg" bg="transparent" variant="dark">
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Brand >React-Bootstrap</Navbar.Brand>
+                    <Navbar.Brand ></Navbar.Brand>
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav>
                             <Nav.Link as={Link} eventKey="1" to="/">Home</Nav.Link>

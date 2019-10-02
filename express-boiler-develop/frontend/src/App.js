@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import FriendMap from './components/FriendMap';
 import { Store } from './utilities/Store';
@@ -6,18 +6,24 @@ import { Store } from './utilities/Store';
 
 export default function App() {
   const { state, dispatch } = React.useContext(Store);
+  const [haveLookedForData, sethaveLookedForData] = useState(false)
+
 
   const fetchDataAction = async () => {
-    const data = await fetch("/api/person");
+    const data = await fetch("/api/created-by/" + state.currentUser.id);
     const dataJSON = await data.json();
-    return dispatch({
+    sethaveLookedForData(true)
+    dispatch({
       type: 'FETCH_DATA',
       payload: dataJSON
     });
   };
 
-  React.useEffect(() => {
-    state.friends.length === 0 && fetchDataAction();
+
+
+  useEffect(() => {
+    // console.log(haveLookedForData);
+    !haveLookedForData && fetchDataAction();
   });
 
 
@@ -27,8 +33,6 @@ export default function App() {
       <FriendMap className="col-10 offset-1" />
     </div>
   );
-
-
 }
 
 

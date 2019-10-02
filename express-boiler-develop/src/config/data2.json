@@ -1,0 +1,37 @@
+[{
+    "name": {
+      "firstName": "Hildagard",
+      "lastName": "Adolfsen"
+    },
+    "email": "hadolfsen0@cnn.com",
+    "phoneNumber": "+62 552 863 9177",
+    "location": {
+      "city": "Kadugedong",
+      "country": "Indonesia",
+      "timezone": "Asia/Jakarta",
+      "lng": 106.0991261,
+      "lat": -6.3623241
+    },
+    "workStart": "08:02",
+    "workEnd": "17:24",
+    "sleepStart": "22:16",
+    "sleepEnd": "06:59"
+  }, {
+    "name": {
+      "firstName": "Annadiana",
+      "lastName": "Skuse"
+    },
+    "email": "askuse1@cisco.com",
+    "phoneNumber": "+62 135 843 8808",
+    "location": {
+      "city": "Stockholm",
+      "country": "Sweden",
+      "timezone": "Europe/Berlin",
+      "lng": 111.9000827,
+      "lat": -8.0397618
+    },
+    "workStart": "09:13",
+    "workEnd": "16:46",
+    "sleepStart": "23:13",
+    "sleepEnd": "06:20"
+  }]

@@ -1,19 +1,35 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+import { Store } from '../utilities/Store'
 
-class Navigationbar extends Component {
-    render() {
-        return (
-            <div className="d-none d-sm-block">
-                        <div className="flex justify-center">
-                            <NavLink className="nav-link" to="/" >Home</NavLink>
-                            <NavLink className="nav-link" to="/friends">Friends</NavLink>
-                            <NavLink className="nav-link" to="/add-friend">Add friend</NavLink>
-                        </div>
-                        <hr className="col-10 offset-1"/>
-            </div>
-        )
+export default function Navigationbar(props) {
+    const { state, dispatch } = React.useContext(Store);
+
+    const logout = async () => {
+        let result = await fetch('/api/user/logout');
+        result = await result.json()
+        if (result.success) {
+            dispatch({ type: "LOGOUT_USER" })
+        }
     }
-}
 
-export default Navigationbar
+
+    return (
+        <div className="d-none d-sm-block">
+            <div className="flex justify-center">
+                <NavLink className="nav-link" to="/" >Home</NavLink>
+                <NavLink className="nav-link" to="/friends">Friends</NavLink>
+                <NavLink className="nav-link" to="/add-friend">Add friend</NavLink>
+                {
+                    state.currentUser ? <div className="nav-link" onClick={logout}>Logout</div> : <NavLink className="nav-link" to="/login">Login</NavLink>
+                }
+
+                {
+                    state.currentUser && state.currentUser.name ? <p>{state.currentUser.name}</p> : ''
+                }
+
+            </div>
+            <hr className="col-10 offset-1" />
+        </div>
+    )
+}
