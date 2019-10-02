@@ -29,7 +29,7 @@ export default function Friends(props) {
     });
 
     const fetchDataAction = async () => {
-        const data = await fetch("/api/person/" + state.currentUser.id);
+        const data = await fetch("/api/created-by/" + state.currentUser.id);
         const dataJSON = await data.json();
         sethaveLookedForData(true)
         return dispatch({

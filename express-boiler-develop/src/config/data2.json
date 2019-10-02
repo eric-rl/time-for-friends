@@ -15,8 +15,7 @@
     "workStart": "08:02",
     "workEnd": "17:24",
     "sleepStart": "22:16",
-    "sleepEnd": "06:59",
-    "createdBy": "5d94882d44299d5599bba2cc"
+    "sleepEnd": "06:59"
   }, {
     "name": {
       "firstName": "Annadiana",
@@ -34,6 +33,5 @@
     "workStart": "09:13",
     "workEnd": "16:46",
     "sleepStart": "23:13",
-    "sleepEnd": "06:20",
-    "createdBy": "5d948856bfd57c55ae08edf6"
+    "sleepEnd": "06:20"
   }]

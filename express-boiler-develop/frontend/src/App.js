@@ -22,7 +22,7 @@ export default function App() {
 
 
   useEffect(() => {
-    console.log(haveLookedForData);
+    // console.log(haveLookedForData);
     !haveLookedForData && fetchDataAction();
   });
 
