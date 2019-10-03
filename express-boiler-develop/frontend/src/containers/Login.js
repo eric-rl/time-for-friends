@@ -62,7 +62,7 @@ export default function Register(props) {
     return (
         <div className="justify-center tc">
             <h1 className='f1'>Login</h1>
-            <Form noValidate onSubmit={checkInputs} className="flex row col-12 col-sm-8 offset-sm-2 m-0">
+            <Form noValidate onSubmit={checkInputs} className="flex row col-12 col-sm-8 offset-sm-2">
                 <div className="column col-12">
                     <Form.Group controlId="validationFirstname">
                         <Form.Label>Username</Form.Label>

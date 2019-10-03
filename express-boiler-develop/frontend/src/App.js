@@ -50,7 +50,7 @@ export default function App() {
         <PrivateRoutes exact path="/" component={FriendMap} isAuthenticated={state.isLoggedIn} redirectPath="/login" />
         <PrivateRoutes exact path="/friends" component={Friends} isAuthenticated={state.isLoggedIn} redirectPath="/login" />
         <PrivateRoutes path="/add-friend" component={AddFriend} isAuthenticated={state.isLoggedIn} redirectPath="/login" />
-        <PrivateRoutes path="/friends/:id" component={FriendDetails} redirectPath="/login" />
+        <PrivateRoutes path="/friend/:id" component={FriendDetails} isAuthenticated={state.isLoggedIn} />
         <PrivateRoutes path="/register" component={Register} isAuthenticated={!state.isLoggedIn} redirectPath="/" />
         <PrivateRoutes path="/login" component={Login} isAuthenticated={!state.isLoggedIn} redirectPath="/" />
       </div>

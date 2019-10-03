@@ -13,7 +13,7 @@ export default class FriendCard extends Component {
     }
 
     render() {
-        let friendLink = "/friends/" + this.props._id;
+        let friendLink = "/friend/" + this.props._id;
 
         return (
             <div className='br3 ma2 dib bw2 shadow-5'>
