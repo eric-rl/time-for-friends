@@ -1,45 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { Store } from '../utilities/Store'
 import { Link } from 'react-router-dom'
 
 export default function Register(props) {
 
-    const { state, dispatch } = React.useContext(Store);
+    const { dispatch } = React.useContext(Store);
     const [userNameError, setUserNameError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [password, setPassword] = useState('')
     const [userName, setUsername] = useState('')
+
     const handleChangeUsername = event => {
         setUsername(event.target.value)
-    }
-
-    useEffect(() => {
-        checkLoginStatus()
-        console.log(state.isLoggedIn)
-    });
-
-    const checkLoginStatus = async () => {
-        let data = await fetch("/api/loggedinas");
-        try {
-            data = await data.json();
-        } catch {
-        }
-        if (data.loggedIn && state.isLoggedIn === false) {
-            dispatch({
-                type: 'SET_LOGGEDIN',
-            })
-            dispatch({
-                type: 'FETCH_CURRENT_USER',
-                payload: data
-            })
-        } else if (!data.loggedIn && state.isLoggedIn === true) {
-            dispatch({
-                type: 'LOGOUT_USER'
-            })
-        }
-        console.log("logged in?", data)
-
     }
 
     const handleChangePassword = event => {
@@ -49,20 +22,6 @@ export default function Register(props) {
         event.preventDefault();
         login(userName, password);
     }
-
-    const fetchCurrentUser = async () => {
-        const data = await fetch("/api/loggedinas");
-        let currentUser = null
-        try {
-            currentUser = await data.json();
-        } catch (err) {
-
-        }
-        dispatch({
-            type: 'FETCH_CURRENT_USER',
-            payload: currentUser
-        })
-    };
 
     const login = async (userName, password) => {
         setUserNameError(false)
@@ -89,8 +48,12 @@ export default function Register(props) {
                 type: 'SET_LOGGEDIN',
                 payload: true
             })
+            dispatch({
+                type: 'FETCH_CURRENT_USER',
+                payload: result.sessUser
+            })
 
-            await fetchCurrentUser()
+            // await fetchCurrentUser()
             await props.history.push('/')
 
         }
