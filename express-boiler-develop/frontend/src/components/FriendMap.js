@@ -8,7 +8,6 @@ function FriendMap(props) {
     const [haveLookedForData, sethaveLookedForData] = useState(false)
 
     useEffect(() => {
-        console.log(haveLookedForData);
         !haveLookedForData && fetchDataAction();
     });
 
