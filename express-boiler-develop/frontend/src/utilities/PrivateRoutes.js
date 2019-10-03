@@ -5,13 +5,13 @@ import { Store } from '../utilities/Store'
 
 const PrivateRoutes = props => {
     const { state } = React.useContext(Store);
-    const { component: Component, isAuthenicated, redirectPath, ...rest } = props;
+    const { component: Component, isAuthenticated, redirectPath, ...rest } = props;
 
     return (
         <Route
             {...rest}
             render={props =>
-                state.isLoggedIn ? (
+                isAuthenticated ? (
                     <Component {...props} />
                 ) : (
                         <Redirect

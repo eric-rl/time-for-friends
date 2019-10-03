@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import '../css/spinner.css'
 import { Store } from '../utilities/Store';
 
 function FriendMap(props) {
-    const { state } = React.useContext(Store);
+    const { state, dispatch } = React.useContext(Store);
+    const [haveLookedForData, sethaveLookedForData] = useState(false)
+
+    useEffect(() => {
+        console.log(haveLookedForData);
+        !haveLookedForData && fetchDataAction();
+    });
+
+    const fetchDataAction = async () => {
+        const data = await fetch("/api/created-by/" + state.currentUser.id);
+        const dataJSON = await data.json();
+        sethaveLookedForData(true)
+        dispatch({
+            type: 'FETCH_DATA',
+            payload: dataJSON
+        });
+    };
 
     return (
         <div className="col-10 offset-1">
@@ -16,7 +32,7 @@ function FriendMap(props) {
                     zoom={2}
                     initialCenter={{ lat: 20, lng: 1 }}
                     disableDefaultUI={true}
-                    styles = {[
+                    styles={[
                         {
                             "featureType": "all",
                             "elementType": "labels.text.fill",
