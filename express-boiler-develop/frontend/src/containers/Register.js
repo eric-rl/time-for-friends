@@ -11,8 +11,10 @@ export default class Register extends Component {
 
     }
 
-    state =  {
-        errors: {}
+    state = {
+        userNameError: false,
+        passwordError: false,
+        passwordLengthError: false
     }
 
     checkInputs = event => {
@@ -24,6 +26,7 @@ export default class Register extends Component {
     }
 
     async register(userName, password, password2) {
+        this.setState({ userNameError: false, passwordError: false, password2: false })
         let data = {
             userName,
             password,
@@ -37,7 +40,16 @@ export default class Register extends Component {
         });
 
         let result = await registerUser.json()
-        if(result.status=== 200){
+        if (result.userName === "Username already exists") {
+            this.setState({ userNameError: true })
+        }
+        if (result.password === "Password must be at least 6 characters") {
+            this.setState({ passwordLengthError: true })
+        }
+        if (result.password2 === "Passwords must match") {
+            this.setState({ passwordError: true })
+        }
+        if (result.status === 200) {
             this.props.history.push("/login")
         }
     }
@@ -52,14 +64,17 @@ export default class Register extends Component {
                             <Form.Label>Username</Form.Label>
                             <Form.Control required type="text" ref={this.userName} />
                         </Form.Group>
+                        {this.state.userNameError ? <p className="warningSleep">Username already exists</p> : ''}
                         <Form.Group controlId="validationPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control required type="password"  ref={this.password} />
+                            <Form.Control required type="password" ref={this.password} />
                         </Form.Group>
+                        {this.state.passwordLengthError ? <p className="warningSleep">Password must be atleast 6 characters</p> : ''}
                         <Form.Group controlId="validationPassword2">
                             <Form.Label>Confirm password</Form.Label>
-                            <Form.Control required type="password"  ref={this.password2} />
+                            <Form.Control required type="password" ref={this.password2} />
                         </Form.Group>
+                        {this.state.passwordError ? <p className="warningSleep">Passwords doesn't match</p> : ''}
                     </div>
                     <div className="column col-12 flex justify-center">
                         <Button className="mt-4 mb-5" type="submit" variant="primary">
