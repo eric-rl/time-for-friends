@@ -21,7 +21,7 @@ export default function NavigationbarMobile(props) {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Brand >
                     {
-                        state.currentUser && state.currentUser.name ? <h3>{state.currentUser.name}</h3> : ''
+                        state.currentUser && state.currentUser.name ? <h1>{state.currentUser.name}</h1> : ''
                     }
                 </Navbar.Brand>
                 <Navbar.Collapse id="responsive-navbar-nav">

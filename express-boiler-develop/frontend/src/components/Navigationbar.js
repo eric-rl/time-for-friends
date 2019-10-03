@@ -20,14 +20,14 @@ export default function Navigationbar(props) {
                 <NavLink className="nav-link" to="/friends">Friends</NavLink>
                 <NavLink className="nav-link" to="/add-friend">Add friend</NavLink>
                 {
+                    state.currentUser && state.currentUser.name ? <NavLink className="nav-link" to="/friends">{state.currentUser.name}</NavLink> : <p></p>
+                }
+                {
                     state.isLoggedIn ? <div className="nav-link" onClick={logout}>Logout</div> : <NavLink className="nav-link" to="/login">Login</NavLink>
                 }
 
 
             </div>
-            {
-                state.currentUser && state.currentUser.name ? <h1>{state.currentUser.name}</h1> : ''
-            }
             <hr className="col-10 offset-1" />
         </div>
     )
