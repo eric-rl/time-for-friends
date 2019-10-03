@@ -5,7 +5,7 @@ time-for-friends with Johan Schultze and Eric Rasmusson
 2. start frondend with npm start
 
 to login use: 
-username: admin
+username: admin \n
 password: password
 
 If you find any bugs, please report to FBI. 
