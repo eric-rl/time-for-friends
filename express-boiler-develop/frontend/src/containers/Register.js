@@ -57,7 +57,7 @@ export default class Register extends Component {
                             <Form.Control required type="password"  ref={this.password} />
                         </Form.Group>
                         <Form.Group controlId="validationPassword2">
-                            <Form.Label>Enter the same password</Form.Label>
+                            <Form.Label>Confirm password</Form.Label>
                             <Form.Control required type="password"  ref={this.password2} />
                         </Form.Group>
                     </div>
