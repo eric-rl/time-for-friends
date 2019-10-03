@@ -101,15 +101,22 @@ export default class AddFriend extends Component {
         }
     }
 
-    checkWorkSleep(){
-        if(this.workStart.current.value < this.workEnd.current.value){
-            if(this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value){
+    checkWorkSleep() {
+
+        if (this.workStart.current.value < this.workEnd.current.value) {
+            if (this.workEnd.current.value > this.sleepStart.current.value && this.workStart.current.value < this.sleepEnd.current.value) {
                 return false
-            } else {
+            } else if (this.sleepEnd.current.value > this.workStart.current.value && this.sleepStart.current.value > this.workEnd.current.value) {
+                return false
+            } else if (this.sleepStart.current.value < this.workEnd.current.value && this.sleepStart.current.value < this.workEnd.current.value && this.sleepStart.current.value < this.sleepEnd.current.value){
+                return true
+            } else if (this.sleepStart.current.value < this.workEnd.current.value && this.sleepStart.current.value < this.workEnd.current.value && this.sleepStart.current.value > this.sleepEnd.current.value){
+                return false
+            } else{
                 return true
             }
-        } if(this.workStart.current.value > this.workEnd.current.value) {
-            if(this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value) {
+        } if (this.workStart.current.value > this.workEnd.current.value) {
+            if (this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value) {
                 return false
             } else {
                 return true
@@ -126,8 +133,8 @@ export default class AddFriend extends Component {
             event.preventDefault();
             event.stopPropagation();
             this.setState({ validated: true });
-            this.setState({sleepWorkError: true});
-        } else if(this.checkWorkSleep()) {
+            this.setState({ sleepWorkError: true });
+        } else if (this.checkWorkSleep()) {
             event.preventDefault();
             this.dataCheck();
         }
@@ -248,8 +255,8 @@ export default class AddFriend extends Component {
                         }
                     </div>
                     <div className="column col-12 flex justify-center">
-                    <Button className="mt-4 mb-5" type="submit" variant="primary">
-                        Submit
+                        <Button className="mt-4 mb-5" type="submit" variant="primary">
+                            Submit
                     </Button>
                     </div>
                 </Form>

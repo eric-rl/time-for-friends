@@ -16,6 +16,7 @@ export default function Register(props) {
 
     useEffect(() => {
         checkLoginStatus()
+        console.log(state.isLoggedIn)
     });
 
     const checkLoginStatus = async () => {
