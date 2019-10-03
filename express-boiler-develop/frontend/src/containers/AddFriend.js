@@ -97,19 +97,26 @@ export default class AddFriend extends Component {
 
 
             let id = await result.json()
-            await this.props.history.push('/friends/' + id._id)
+            await this.props.history.push('/friend/' + id._id)
         }
     }
 
-    checkWorkSleep(){
-        if(this.workStart.current.value < this.workEnd.current.value){
-            if(this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value){
+    checkWorkSleep() {
+
+        if (this.workStart.current.value < this.workEnd.current.value) {
+            if (this.workEnd.current.value > this.sleepStart.current.value && this.workStart.current.value < this.sleepEnd.current.value) {
                 return false
-            } else {
+            } else if (this.sleepEnd.current.value > this.workStart.current.value && this.sleepStart.current.value > this.workEnd.current.value) {
+                return false
+            } else if (this.sleepStart.current.value < this.workEnd.current.value && this.sleepStart.current.value < this.workEnd.current.value && this.sleepStart.current.value < this.sleepEnd.current.value){
+                return true
+            } else if (this.sleepStart.current.value < this.workEnd.current.value && this.sleepStart.current.value < this.workEnd.current.value && this.sleepStart.current.value > this.sleepEnd.current.value){
+                return false
+            } else{
                 return true
             }
-        } if(this.workStart.current.value > this.workEnd.current.value) {
-            if(this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value) {
+        } if (this.workStart.current.value > this.workEnd.current.value) {
+            if (this.workEnd.current.value > this.sleepStart.current.value || this.workStart.current.value < this.sleepEnd.current.value) {
                 return false
             } else {
                 return true
