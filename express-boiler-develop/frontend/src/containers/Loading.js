@@ -5,7 +5,7 @@ export default class Loading extends Component {
     render() {
         return (
             <div>
-                <div class='spinner'>
+                <div className='spinner'>
                     <i>
                         <b></b>
                     </i>

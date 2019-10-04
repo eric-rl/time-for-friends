@@ -4,7 +4,7 @@ export const Store = React.createContext();
 
 const initialState = {
   friends: [],
-  currentUser: null,
+  currentUser: '',
   isLoggedIn: false,
 }
 

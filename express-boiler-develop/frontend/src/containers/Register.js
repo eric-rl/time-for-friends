@@ -8,7 +8,6 @@ export default class Register extends Component {
         this.userName = React.createRef();
         this.password = React.createRef();
         this.password2 = React.createRef();
-
     }
 
     state = {
