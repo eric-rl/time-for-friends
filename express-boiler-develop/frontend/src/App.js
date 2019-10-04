@@ -1,5 +1,5 @@
 import React  from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css';
 import FriendMap from './components/FriendMap';
 import Friends from './containers/Friends';
@@ -27,7 +27,6 @@ export default function App() {
         <PrivateRoutes path="/friend/:id" component={FriendDetails} isAuthenticated={state.isLoggedIn} />
         <PrivateRoutes path="/register" component={Register} isAuthenticated={!state.isLoggedIn} redirectPath="/" />
         <PrivateRoutes path="/login" component={Login} isAuthenticated={!state.isLoggedIn} redirectPath="/" />
-        {/* <Route path="/login" component={Login} /> */}
       </div>
     </Router>
   );
