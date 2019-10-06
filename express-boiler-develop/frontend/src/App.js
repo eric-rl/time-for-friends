@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css';
 import FriendMap from './components/FriendMap';
@@ -14,33 +14,7 @@ import { Store } from './utilities/Store';
 
 
 export default function App() {
-  const { state, dispatch } = React.useContext(Store);
-
-
-  useEffect(() => {
-    checkLoginStatus()
-  });
-
-  const checkLoginStatus = async () => {
-    let data = await fetch("/api/loggedinas");
-    try {
-      data = await data.json();
-    } catch {
-    }
-    if (data.loggedIn && state.isLoggedIn === false) {
-      dispatch({
-        type: 'SET_LOGGEDIN',
-      })
-      dispatch({
-        type: 'FETCH_CURRENT_USER',
-        payload: data
-      })
-    } else if (!data.loggedIn && state.isLoggedIn === true) {
-      dispatch({
-        type: 'LOGOUT_USER'
-      })
-    }
-  }
+  const { state } = React.useContext(Store);
 
   return (
     <Router>
