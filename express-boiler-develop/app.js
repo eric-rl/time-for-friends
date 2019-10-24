@@ -5,6 +5,7 @@ const { db } = require('./src/loaders');
 const { router } = require('./src/api');
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
+const innit = require('./src/api/innit');
 
 const mongoDBstore = new MongoDBStore({
     uri: config.databaseURL,
@@ -31,6 +32,7 @@ app.use('/', router);
 
 async function startWebServer() {
     app.listen(config.port, () => console.log('Listening on port ' + config.port));
+    innit.eraseData()
 }
 
 db.once('open', () => {
