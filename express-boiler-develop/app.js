@@ -32,7 +32,6 @@ app.use('/', router);
 
 async function startWebServer() {
     app.listen(config.port, () => console.log('Listening on port ' + config.port));
-    innit.eraseData()
 }
 
 db.once('open', () => {
