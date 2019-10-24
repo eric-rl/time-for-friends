@@ -5,7 +5,6 @@ const { db } = require('./src/loaders');
 const { router } = require('./src/api');
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
-const innit = require('./src/api/innit');
 
 const mongoDBstore = new MongoDBStore({
     uri: config.databaseURL,
