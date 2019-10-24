@@ -7,7 +7,7 @@ const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 
 //Erases and then create user, friends etc. 
-// innit.eraseData();
+innit.eraseData();
 
 const dbModels = {
     person: require('../models/Person'),
